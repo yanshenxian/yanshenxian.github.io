@@ -30,7 +30,7 @@ default_language = "zh"
 [extra]
 # Put all your custom variables here
 even_title = "Blog"
-even_avatar = "avatar.jpg"
+even_avatar = "/avatar.jpg"
 # even_avatar = "https://simple-dev-blog-zola-starter.netlify.app/processed_images/53af5229a2f8852200.png"
 
 even_menu = [
