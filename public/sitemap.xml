@@ -10,11 +10,7 @@
         <loc>http://127.0.0.1:1111/categories/</loc>
     </url>
     <url>
-        <loc>http://127.0.0.1:1111/categories/fei-zhi-lou/</loc>
-    </url>
-    <url>
-        <loc>http://127.0.0.1:1111/hello-world/</loc>
-        <lastmod>2020-08-07</lastmod>
+        <loc>http://127.0.0.1:1111/categories/self/</loc>
     </url>
     <url>
         <loc>http://127.0.0.1:1111/page/1/</loc>
@@ -23,6 +19,10 @@
         <loc>http://127.0.0.1:1111/tags/</loc>
     </url>
     <url>
-        <loc>http://127.0.0.1:1111/tags/trash/</loc>
+        <loc>http://127.0.0.1:1111/tags/zola/</loc>
+    </url>
+    <url>
+        <loc>http://127.0.0.1:1111/zola-site-markdown-overview/</loc>
+        <lastmod>2020-08-07</lastmod>
     </url>
 </urlset>

@@ -1,12 +1,17 @@
 # The URL the site will be built for
 base_url = "https://blog.yanshenxian.xyz"
 
+title = "yanshenxian's blog"
+description = "兴趣驱动分享"
+
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = true
 
 # Whether to do syntax highlighting
 # Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
 highlight_code = true
+highlight_theme = "inspired-github"
+
 
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = false
@@ -20,6 +25,8 @@ taxonomies = [
     {name = "tags"},
 ]
 
+default_language = "zh"
+
 [extra]
 # Put all your custom variables here
 even_title = "Blog"
@@ -32,3 +39,5 @@ even_menu = [
     {url = "$BASE_URL/tags", name = "Tags"},
     {url = "$BASE_URL/about", name = "About"},
 ]
+
+enable_target_blank = true
