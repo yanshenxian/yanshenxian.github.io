@@ -1,0 +1,55 @@
+#header {
+  // padding: 20px;
+  padding: 10px 20px 0 20px;
+  display: flex;
+  justify-content: space-between;
+
+  .logo {
+    font-family: Chancery, cursive, LiSu, sans-serif;
+    font-weight: 400;
+
+    a {
+      color: #34495e;
+      font-size: 36px;
+    }
+  }
+
+  a.profile-icon img {
+    border-radius: 50%;
+    max-height: 50px;
+    margin: 5px auto;
+  }
+  
+  .menu {
+    align-self: flex-start;
+    font-family: $decoration-font-family;
+
+    ul {
+      display: inline-block;
+      padding-right: 25px;
+
+      li {
+        display: inline-block;
+        margin-right: 5px;
+        @include underline-from-center;
+
+        a {
+          color: #34495e;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+@include max-screen() {
+  #header {
+    .logo, .profile-icon, .menu {
+      display: none;
+    }
+    padding: 50px 0 0;
+    text-align: center;
+  }
+  footer {
+    display: none;
+  }
+}

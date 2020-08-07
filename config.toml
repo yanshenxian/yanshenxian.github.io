@@ -1,0 +1,34 @@
+# The URL the site will be built for
+base_url = "https://blog.yanshenxian.xyz"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = true
+
+# Whether to do syntax highlighting
+# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
+highlight_code = true
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = false
+
+theme = "even"
+
+generate_feed = true
+
+taxonomies = [
+    {name = "categories"},
+    {name = "tags"},
+]
+
+[extra]
+# Put all your custom variables here
+even_title = "Blog"
+even_avatar = "https://avatars2.githubusercontent.com/u/58985624?s=100"
+# even_avatar = "https://simple-dev-blog-zola-starter.netlify.app/processed_images/53af5229a2f8852200.png"
+
+even_menu = [
+    {url = "$BASE_URL", name = "Home"},
+    {url = "$BASE_URL/categories", name = "Categories"},
+    {url = "$BASE_URL/tags", name = "Tags"},
+    {url = "$BASE_URL/about", name = "About"},
+]
