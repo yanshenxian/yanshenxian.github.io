@@ -30,8 +30,8 @@ default_language = "zh"
 [extra]
 # Put all your custom variables here
 even_title = "Blog"
+# 网站头像访问地址
 even_avatar = "/avatar.jpg"
-# even_avatar = "https://simple-dev-blog-zola-starter.netlify.app/processed_images/53af5229a2f8852200.png"
 
 even_menu = [
     {url = "$BASE_URL", name = "Home"},
@@ -40,4 +40,12 @@ even_menu = [
     {url = "$BASE_URL/about", name = "About"},
 ]
 
+# 所有外链新标签打开
 enable_target_blank = true
+
+# 文章文件夹，生成的链接将会以这个路径开头
+article_section = "article/_index.md"
+
+article_directory = "article"
+
+enable_comment = true

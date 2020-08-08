@@ -78,7 +78,9 @@
                 {% block content %}
                 <div class="posts">
                     <!-- 得到文章列表的section -->
-                    {% set section = get_section(path="article/_index.md") %}
+                    <!-- {% set section = get_section(path=(config.extra.article_section)) %} -->
+                    {% set article_section = config.extra.article_directory ~ "/_index.md" %}
+                    {% set section = get_section(path=article_section) %}
                     {% for page in section.pages %}
                     <article class="post">
                         {{ post_macros::title(page=page) }}
@@ -116,12 +118,13 @@
         </footer>
     </div>
 
-    {% block js_body %}
-    <script type="text/javascript" src="{{ get_url(path="even.js", trailing_slash=false) }}"></script>
-    {% endblock js_body %}
+
 </body>
 
 {% block js %}
+
+<script type="text/javascript" src="{{ get_url(path="even.js", trailing_slash=false) }}"></script>
+
 <script src="/js/slideout.min.js"></script>
 {% if config.extra.katex_enable %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css"
@@ -140,6 +143,13 @@
 {% endif %}
 {% endif %}
 
+{% if config.extra.enable_comment and page.toc %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+{% endif %}
+
+
 {% if config.extra.enable_target_blank %}
 <script>
     var links = document.getElementsByTagName('a');
@@ -149,6 +159,22 @@
             link.target = "_blank";
         }
     }
+</script>
+{% endif %}
+
+{% if config.extra.enable_comment and page.toc %}
+<script>
+    var gitalk = new Gitalk({
+        clientID: '4b3c139651c70f51b1e3',
+        clientSecret: 'ea13a135d5e93f7abfcff3f8c1fbd2430780b1fa',
+        repo: 'yanshenxian.github.io',
+        owner: 'yanshenxian',
+        admin: ['yanshenxian'],
+        id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    })
+
+    gitalk.render('gitalk-container')
 </script>
 {% endif %}
 {% endblock js %}
