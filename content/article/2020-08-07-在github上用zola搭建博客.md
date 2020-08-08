@@ -17,7 +17,7 @@ tags = ["原创", "Zola", "wsl"]
 
 因为刚从 Mac OS 切到 Win10 开发环境，也是第一次尝试 `wsl2`。虽然这没有 Mac OS 或者 Linux 好用，但是也极大的增强了 win10 开发的体验。
 
-1、 首先根据 [官网文档](https://docs.microsoft.com/zh-cn/windows/wsl/install-win10) 开启 `wsl2`
+1、首先根据 [官网文档](https://docs.microsoft.com/zh-cn/windows/wsl/install-win10) 开启 `wsl2`
 
 2、运行 `wsl` 命令启动环境，这个时候你就可以看到一个简洁的 linux 终端了，**wsl2 的文件和端口是和宿主机共享的。** 比如你 c 盘上的文件会映射到 `/mnt/c/` 这个路径，你在 wsl 里面启动了一个 web 服务监听端口 8080，你就可以在宿主机上直接使用 127.0.0.1:8080 访问它。
 
@@ -25,12 +25,10 @@ tags = ["原创", "Zola", "wsl"]
 
 4、花了一堆时间终于搞得有模有样了，你可能还会碰到一些问题，它终究不是一个完整的 linux 。。。比如 `ping` 命令无法使用，搜索发现需要 `sudo chmod u+s` 下，再比如域名解析会莫名其妙的出现问题，解决方法是修改 `resolv.conf` 文件 (必须先在 `wsl.conf` 里设置 generateResolvConf 参数否则重启无效)
 ```zsh
-# user @ honor in ~ [18:24:40]
 λ cat /etc/wsl.conf
 [network]
 generateResolvConf = false
 
-# user @ honor in ~ [20:02:05] C:130
 λ cat /etc/resolv.conf
 nameserver 8.8.8.8
 ```
