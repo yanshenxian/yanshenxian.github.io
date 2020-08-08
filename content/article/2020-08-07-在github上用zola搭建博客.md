@@ -13,15 +13,15 @@ tags = ["原创", "Zola", "wsl"]
 `Rust` 是个很酷的语言。
 <!-- more -->
 
-## 配置 WSL2 开发环境
+## 配置 Wsl2 开发环境
 
-因为刚从 macos 切到 win10 开发环境，也是第一次尝试 `wsl2`。虽然这没有 macos 或者 linux 好用，但是也极大的增强了 win10 开发的体验。
+因为刚从 Mac OS 切到 Win10 开发环境，也是第一次尝试 `wsl2`。虽然这没有 Mac OS 或者 Linux 好用，但是也极大的增强了 win10 开发的体验。
 
 1、 首先根据 [官网文档](https://docs.microsoft.com/zh-cn/windows/wsl/install-win10) 开启 `wsl2`
 
 2、运行 `wsl` 命令启动环境，这个时候你就可以看到一个简洁的 linux 终端了，**wsl2 的文件和端口是和宿主机共享的。** 比如你 c 盘上的文件会映射到 `/mnt/c/` 这个路径，你在 wsl 里面启动了一个 web 服务监听端口 8080，你就可以在宿主机上直接使用 127.0.0.1:8080 访问它。
 
-3、然后像在 linux 上一样配置开发环境，修改国内镜像、安装 git、zsh、oh-my-zsh等等操作，你可能还会在宿主机上安装 VS Code + `Remote - WSL` 插件，这个用来管理 wsl 里的项目很方便，它的终端默认就是 wsl 的终端。另外也可以换个漂亮点的终端替换掉 cmd 或者 powershell，`windows Terminal` 就是个不错的选择。
+3、然后像在 Linux 上一样配置开发环境，修改国内镜像、安装 git、zsh、oh-my-zsh等等操作，你可能还会在宿主机上安装 VS Code + `Remote - WSL` 插件，这个用来管理 wsl 里的项目很方便，它的终端默认就是 wsl 的终端。另外也可以换个漂亮点的终端替换掉 cmd 或者 powershell，`windows Terminal` 就是个不错的选择。
 
 4、花了一堆时间终于搞得有模有样了，你可能还会碰到一些问题，它终究不是一个完整的 linux 。。。比如 `ping` 命令无法使用，搜索发现需要 `sudo chmod u+s` 下，再比如域名解析会莫名其妙的出现问题，解决方法是修改 `resolv.conf` 文件 (必须先在 `wsl.conf` 里设置 generateResolvConf 参数否则重启无效)
 ```zsh
@@ -37,7 +37,7 @@ nameserver 8.8.8.8
 
 5、另外这里推荐下华为的笔记本，多屏协同真的很方便！要走我的 [推广链接](https://u.jd.com/TKhRo6) 购买吗？
 
-## 本地安装 Zola
+## Wsl2 中安装 Zola
 
 因为在安装的过程中，我遇到了几个坑，所以这里单独提出来说下。
 
@@ -83,6 +83,9 @@ config.toml  content  sass  static  templates  themes
 - 参考 [anpu](https://www.getzola.org/themes/anpu/) 加了个 footer
 - 修改了默认的锚点符号 见 `templates/anchor-link.html`
 - favicon.ico 和 sideout.min.js 脚本本地化，见 `static/` 目录，主题里面用的 cdn 访问速度太慢了
+- 修改文章路径以 `config.extra.article_directory` 开头
+- 集成 [gitalk](https://github.com/gitalk/gitalk) 评论，配置在 `config.extra.enable_comment`
+- 所有外链新标签打开 `config.extra.enable_target_blank`
 - ...
 
 你可以从我的 github 博客仓库 拷贝我的配置和修改后的主题，`even` 主题在 `themes/even/content` 里自带了一些示例文章，可以参考下文章编写规则（简单说就是一些 metadata 头部 + markdown 内容）
@@ -135,6 +138,6 @@ Web server is available at http://127.0.0.1:1025
 
 但是总体操作应该可以顺下来。多看官方文档也会有很大的帮助。
 
-如果有问题，可以在 [github repo issue](https://github.com/yanshenxian/yanshenxian.github.io/issues) 中留言。
+如果有问题，可以在 [github repo issue](https://github.com/yanshenxian/yanshenxian.github.io/issues/1) 中留言。
 
 

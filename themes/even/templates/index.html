@@ -78,7 +78,6 @@
                 {% block content %}
                 <div class="posts">
                     <!-- 得到文章列表的section -->
-                    <!-- {% set section = get_section(path=(config.extra.article_section)) %} -->
                     {% set article_section = config.extra.article_directory ~ "/_index.md" %}
                     {% set section = get_section(path=article_section) %}
                     {% for page in section.pages %}
