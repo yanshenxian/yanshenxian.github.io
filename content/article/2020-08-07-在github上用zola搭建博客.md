@@ -137,7 +137,3 @@ Web server is available at http://127.0.0.1:1025
 由于我是搭建完之后再写这篇文章的，有些步骤可能没那么明确了，比如我因为有一些踩过的坑，所以调整了些步骤，有些组件也不是必要的，比如 `wsl2`、`cloudflare`
 
 但是总体操作应该可以顺下来。多看官方文档也会有很大的帮助。
-
-如果有问题，可以在 [github repo issue](https://github.com/yanshenxian/yanshenxian.github.io/issues/1) 中留言。
-
-

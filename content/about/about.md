@@ -12,4 +12,6 @@ template = "about.html"
 
 ## 作者
 
-可以在 [Github](https://github.com/yanshenxian/yanshenxian.github.io/issues/2) 上和我沟通
+可以在 [github issues](https://github.com/yanshenxian/yanshenxian.github.io/issues/2) 上和我沟通
+
+或者在下方提交评论 ~~如果评论好使的话~~ 🙈
