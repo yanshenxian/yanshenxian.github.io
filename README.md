@@ -10,4 +10,13 @@
 
 ![home](screenshot/home.bmp)
 
-![page](screenshot/page.bmp)
+一些小改动
+
+- 参考 [simple-dev-blog](https://www.getzola.org/themes/simple-dev-blog/) 把头部显示的站点名称改成了头像
+- 参考 [anpu](https://www.getzola.org/themes/anpu/) 加了个 footer
+- 修改了默认的锚点符号 见 `templates/anchor-link.html`
+- favicon.ico 和 sideout.min.js 脚本本地化，见 `static/` 目录，主题里面用的 cdn 访问速度太慢了
+- 修改文章路径以 `article` (sub section) 子目录开头，还可以根据年/月来创建子文件夹，但是子目录的 `_index.md` 必须包含 `transparent = true` 的配置
+- 集成 [gitalk](https://github.com/gitalk/gitalk) 评论，配置在 `config.extra.enable_comment`，并且文章单独可以配置是否开启评论 `page.extra.enable_comment`
+- 所有外链新标签打开 `config.extra.enable_target_blank`
+- ...

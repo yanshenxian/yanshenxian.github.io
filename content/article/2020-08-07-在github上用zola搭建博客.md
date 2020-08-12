@@ -2,10 +2,15 @@
 title = "在Github上发布你的Zola博客"
 slug = "build-and-deploy-zola-on-github-pages"
 date = 2020-08-07
+insert_anchor_links = "left"
 
 [taxonomies]
 categories = ["2020"]
 tags = ["原创", "Zola", "wsl"]
+
+[extra]
+original_statement = true
+
 +++
 
 本地开发环境 `wsl2`，选取的博客框架 `Zola`，托管服务 `github pages`，自动构建 `github actions`，另外自定义域名还需要一个 DNS 服务商，这里我用的是 `cloudflare`，顺便白嫖 CDN。
@@ -79,8 +84,8 @@ config.toml  content  sass  static  templates  themes
 - 参考 [anpu](https://www.getzola.org/themes/anpu/) 加了个 footer
 - 修改了默认的锚点符号 见 `templates/anchor-link.html`
 - favicon.ico 和 sideout.min.js 脚本本地化，见 `static/` 目录，主题里面用的 cdn 访问速度太慢了
-- 修改文章路径以 `config.extra.article_directory` 开头
-- 集成 [gitalk](https://github.com/gitalk/gitalk) 评论，配置在 `config.extra.enable_comment`
+- 修改文章路径以 `article` (sub section) 子目录开头，还可以根据年/月来创建子文件夹，但是子目录的 `_index.md` 必须包含 `transparent = true` 的配置
+- 集成 [gitalk](https://github.com/gitalk/gitalk) 评论，配置在 `config.extra.enable_comment`，并且文章单独可以配置是否开启评论 `page.extra.enable_comment`
 - 所有外链新标签打开 `config.extra.enable_target_blank`
 - ...
 
@@ -127,8 +132,6 @@ Web server is available at http://127.0.0.1:1025
 **如果 github pages settings 中设置了强制 ssl，那么 cf 中 ssl 也必须设置为 Full，要不然会造成无限重定向。**
 
 8. 现在你可以用你的自定义域名访问你的博客了，Enjoy~
-
-## 原创标识 😀 
 
 由于我是搭建完之后再写这篇文章的，有些步骤可能没那么明确了，比如我因为有一些踩过的坑，所以调整了些步骤，有些组件也不是必要的，比如 `wsl2`、`cloudflare`
 

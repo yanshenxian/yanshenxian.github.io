@@ -180,6 +180,19 @@ main {
     border-top: 1px solid #e6e6e6;
   }
 
+  .article.license.body {
+      background-color: #ecf4fb;
+      border-radius: 4px;
+      margin: .8em 0;
+      padding: .925em 1.4em;
+      border: 1px solid #b7d8ef;
+      font-weight: 400;
+  }
+
+  .article.license svg {
+      fill: #00b5ad
+  }
+
   .pagination {
     clear: both;
     font-family: $decoration-font-family;
