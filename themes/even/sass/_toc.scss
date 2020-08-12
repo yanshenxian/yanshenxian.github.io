@@ -46,8 +46,13 @@ $toc-max-sreen-width: 2 * 200px + $post-toc-margin-left !default;
       }
     }
 
+    .has-active {
+      color: rgb(63, 63, 175);
+    }
+
     .toc-link.active {
-      color: $main-colour;
+      color: rgb(63, 63, 175);
+      border-bottom: 1px solid;
     }
   }
 }
