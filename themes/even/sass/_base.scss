@@ -16,6 +16,23 @@ body {
   // padding-bottom: 4rem;
 }
 
+ul {
+    margin: 1rem 0 1rem 1rem;
+    padding: 0;
+}
+
+ol {
+  margin: 1rem 0 1rem 1rem;
+  padding: 0;
+}
+
+ol li {
+  font-weight: bold;
+}
+ol li > * {
+  font-weight: normal;
+}
+
 @include max-screen() {
   body {
     border-top: 0;
