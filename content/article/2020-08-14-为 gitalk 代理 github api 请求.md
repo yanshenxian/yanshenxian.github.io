@@ -18,7 +18,7 @@ gitalk 原生并不支持 api 代理，google 搜索也没有发现现成的方�
 
 ## 修改 gitalk 源码 
 
-改动涉及 `src/gitalk.jsx`、`src/util.js`、`typings/index.d.ts` 这三个文件，对应地址: [commit](https://github.com/yanshenxian/gitalk/commit/16361aaf7b410394203073de3e0d837a29881662)
+改动涉及 `src/gitalk.jsx`、`src/util.js`、`typings/index.d.ts` 这三个文件，对应地址: [commit](https://github.com/yanshenxian/gitalk/commit/3bb5a88729ddaad79e65d3845ea5cb90efeeab99)
 
 
 使用 `npm run build` 构建 js 文件，构建结果位于 `dist/gitalk.min.js`
