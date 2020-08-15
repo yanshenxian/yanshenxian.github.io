@@ -5,7 +5,7 @@ date = 2020-08-14
 
 [taxonomies]
 categories = ["2020"]
-tags = ["原创", "发现"]
+tags = ["原创", "Zola"]
 
 [extra]
 original_statement = true
@@ -28,38 +28,43 @@ gitalk 原生并不支持 api 代理，google 搜索也没有发现现成的方�
 var gitalk = new Gitalk({
     // 其他配置省略
     ...
-    proxyGithubApi: "https://proxy-github-api.username.workers.dev",
+    proxyGithubApi: "https://proxy-github-api.{{USERNAME}}.workers.dev",
     ...
 })
 ```
 
 ## 搭建代理服务器
 
-本着白嫖的心思，想直接用 [cloudflare worker](https://workers.cloudflare.com/)，每天支持10万次免费请求。完整代码如下。
-
 如果是在自己的服务器上用搭建反代服务器，有一些地方需要注意
 1. `header` 中的 `authorization` 必须传递下去
 
 2. `gitalk` 评论请求用到了原始响应里的接口地址，必须进行反代域名替换
+
+本着白嫖的心思，想直接用 [cloudflare worker](https://workers.cloudflare.com/)，每天支持10万次免费请求。完整代码如下。
 
 ```js
 addEventListener('fetch', event => {
     event.respondWith(proxy(event));
 });
 
-// 这里写你的反代域名
-const your_proxy_host_name = "proxy-github-api.username.workers.dev";
-const proxy_host_name = "api.github.com";
+// 是否严格限制请求来源，如果是本地测试可以关掉
+const strict_limit_origin = true;
+// 请求来源
+const blog_origin = "https://{{SITE_HOST_NAME}}";
+// 反代域名
+const proxy_host_name = "proxy-github-api.{{USERNAME}}.workers.dev";
+// 要反代的api地址
+const api_host_name = "api.github.com";
 
 async function proxy(event) {
     const getReqHeader = (key) => event.request.headers.get(key);
 
     let url = new URL(event.request.url);
-    url.hostname = proxy_host_name;
+    url.hostname = api_host_name;
 
     let parameter = {
         headers: {
-            'Host': proxy_host_name,
+            'Host': api_host_name,
             'User-Agent': getReqHeader("User-Agent"),
             'Accept': getReqHeader("Accept"),
             "authorization": getReqHeader("authorization"),
@@ -68,13 +73,27 @@ async function proxy(event) {
         }
     };
 
-    if (event.request.headers.has("Referer")) {
-        parameter.headers.Referer = getReqHeader("Referer");
+    if (!event.request.headers.has("Referer") || !event.request.headers.has("Origin")) {
+        const body = JSON.stringify({ message: "Unexpected Proxy Request[1]!" });
+        return new Response(body, {
+            status: 401        
+        });
     }
 
-    if (event.request.headers.has("Origin")) {
-        parameter.headers.Origin = getReqHeader("Origin");
+    const referer = getReqHeader("Referer");
+    const origin = getReqHeader("Origin");
+    // 判断请求来源
+    if (strict_limit_origin) {
+        if (origin !== blog_origin || !referer.startsWith(blog_origin)) {
+            const body = JSON.stringify({ message: "Unexpected Proxy Request[2]!" });
+            return new Response(body, {
+                status: 401        
+            });
+        }
     }
+
+    parameter.headers.Referer = referer;
+    parameter.headers.Origin = origin;
 
     let response = await fetch(new Request(url, event.request), parameter);
     if (response.status === 200) {
@@ -83,7 +102,7 @@ async function proxy(event) {
         if (contentType.includes('application/json')) {
             // 替换原域名
             const text = await response.text();
-            const body = text.replaceAll("://" + proxy_host_name, "://" + your_proxy_host_name);
+            const body = text.replaceAll("://" + api_host_name, "://" + proxy_host_name);
             return new Response(body, response);
         } else {
             return response;
