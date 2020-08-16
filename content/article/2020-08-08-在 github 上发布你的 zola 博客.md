@@ -2,7 +2,6 @@
 title = "在 github上发布你的 zola 博客"
 slug = "build-and-deploy-zola-on-github-pages"
 date = 2020-08-07
-insert_anchor_links = "left"
 
 [taxonomies]
 categories = ["2020"]

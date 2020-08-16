@@ -42,8 +42,8 @@ var gitalk = new Gitalk({
 
 本着白嫖的心思，直接用 [cloudflare worker](https://workers.cloudflare.com/)，每天支持10万次免费请求。
 
-完整代码如下
+完整代码如下所示
 
-{{ gist(url="https://gist.github.com/yanshenxian/c720ecdafe160653f80a6fbd116916c5") }}
+{{ gist(url="https://proxy.lp-yanshenxian.workers.dev/https://gist.github.com/yanshenxian/c720ecdafe160653f80a6fbd116916c5") }}
 
 上面的脚本参考了 [在特殊地区科学使用 Disqus 评论系统](https://blog.ichr.me/post/use-disqus-conveniently/)
