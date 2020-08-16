@@ -18,7 +18,7 @@ gitalk 原生并不支持 api 代理，google 搜索也没有发现现成的方�
 
 ## 修改 gitalk 源码 
 
-改动涉及 `src/gitalk.jsx`、`src/util.js`、`typings/index.d.ts` 这三个文件，对应地址: [commit](https://github.com/yanshenxian/gitalk/commit/3bb5a88729ddaad79e65d3845ea5cb90efeeab99)
+改动涉及 `src/gitalk.jsx`、`src/util.js`、`typings/index.d.ts` 这三个文件，已提交 [相关 PR](https://github.com/gitalk/gitalk/pull/401)
 
 
 使用 `npm run build` 构建 js 文件，构建结果位于 `dist/gitalk.min.js`
@@ -40,76 +40,10 @@ var gitalk = new Gitalk({
 
 2. `gitalk` 评论请求用到了原始响应里的接口地址，必须进行反代域名替换
 
-本着白嫖的心思，想直接用 [cloudflare worker](https://workers.cloudflare.com/)，每天支持10万次免费请求。完整代码如下。
+本着白嫖的心思，直接用 [cloudflare worker](https://workers.cloudflare.com/)，每天支持10万次免费请求。
 
-```js
-addEventListener('fetch', event => {
-    event.respondWith(proxy(event));
-});
+完整代码如下
 
-// 是否严格限制请求来源，如果是本地测试可以关掉
-const strict_limit_origin = true;
-// 请求来源
-const blog_origin = "https://{{SITE_HOST_NAME}}";
-// 反代域名
-const proxy_host_name = "proxy-github-api.{{USERNAME}}.workers.dev";
-// 要反代的api地址
-const api_host_name = "api.github.com";
+{{ gist(url="https://gist.github.com/yanshenxian/c720ecdafe160653f80a6fbd116916c5") }}
 
-async function proxy(event) {
-    const getReqHeader = (key) => event.request.headers.get(key);
-
-    let url = new URL(event.request.url);
-    url.hostname = api_host_name;
-
-    let parameter = {
-        headers: {
-            'Host': api_host_name,
-            'User-Agent': getReqHeader("User-Agent"),
-            'Accept': getReqHeader("Accept"),
-            "authorization": getReqHeader("authorization"),
-            'Accept-Language': getReqHeader("Accept-Language"),
-            'Accept-Encoding': getReqHeader("Accept-Encoding")
-        }
-    };
-
-    if (!event.request.headers.has("Referer") || !event.request.headers.has("Origin")) {
-        const body = JSON.stringify({ message: "Unexpected Proxy Request[1]!" });
-        return new Response(body, {
-            status: 401        
-        });
-    }
-
-    const referer = getReqHeader("Referer");
-    const origin = getReqHeader("Origin");
-    // 判断请求来源
-    if (strict_limit_origin) {
-        if (origin !== blog_origin || !referer.startsWith(blog_origin)) {
-            const body = JSON.stringify({ message: "Unexpected Proxy Request[2]!" });
-            return new Response(body, {
-                status: 401        
-            });
-        }
-    }
-
-    parameter.headers.Referer = referer;
-    parameter.headers.Origin = origin;
-
-    let response = await fetch(new Request(url, event.request), parameter);
-    if (response.status === 200) {
-        const { headers } = response;
-        const contentType = headers.get('content-type') || '';
-        if (contentType.includes('application/json')) {
-            // 替换原域名
-            const text = await response.text();
-            const body = text.replaceAll("://" + api_host_name, "://" + proxy_host_name);
-            return new Response(body, response);
-        } else {
-            return response;
-        }
-    }
-
-    return response;
-}
-```
 上面的脚本参考了 [在特殊地区科学使用 Disqus 评论系统](https://blog.ichr.me/post/use-disqus-conveniently/)
