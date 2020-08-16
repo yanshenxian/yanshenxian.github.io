@@ -77,10 +77,7 @@
             <div class="content" id="mobile-panel">
                 {% block content %}
                 <div class="posts">
-                    <!-- 得到文章列表的section -->
-                    {% set section = get_section(path="article/_index.md") %}
                     {% for page in paginator.pages %}
-                    <!-- { for page in section.pages %} -->
                     <article class="post">
                         {{ post_macros::title(page=page) }}
                         <div class="post__summary">
