@@ -5,8 +5,8 @@
 
 {% block content %}
 {% if page.toc %}
-<div class="post-toc" id="post-toc">
-    <h2 class="post-toc-title">目录</h2>
+<div class="post-toc{% if page.extra.deprecated %} deprecated{% endif %}" id="post-toc">
+    <p class="post-toc-title">目录</p>
     <div class="post-toc-content always-active">
         <nav id="TableOfContents">
             <ol>
@@ -32,14 +32,14 @@
 
 <article class="post">
     {{ post_macros::title(page=page) }}
-    <div class="post-content">
+    <div class="post-content{% if page.extra.deprecated %} deprecated{% endif %}">
         {{ page.content | safe }}
     </div>
 
     {% block page_before_footer %}
     {% endblock page_before_footer %}
 
-    {% include "even/templates/original_statement.html" %}
+    {% include "even/templates/plugins/original_statement.html" %}
 
     <div class="post-footer">
         {% block page_footer %}
@@ -70,12 +70,10 @@
         {% endif %}
 
         {% endblock page_footer %}
-
     </div>
 
     {% block page_after_footer %}
     {% endblock page_after_footer %}
 </article>
 
-{% include "even/templates/comment.html" %}
 {% endblock content %}

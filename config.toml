@@ -45,3 +45,5 @@ enable_target_blank = true
 
 # 启用评论
 enable_comment = true
+
+comment_repo = "yanshenxian/yanshenxian.github.io"

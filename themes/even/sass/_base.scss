@@ -18,18 +18,23 @@ body {
 
 a:focus {outline-style:none; -moz-outline-style: none;}
 
+hr {
+  background-color: #dbdbdb;
+  border: none;
+  height: 1px;
+}
 
 .gist td {
   border: none !important;
 }
 
 ul {
-    margin: 1rem 0 1rem 1.24rem;
+    margin: 1rem 0 1rem 1.3rem;
     padding: 0;
 }
 
 ol {
-  margin: 1rem 0 1rem 1.24rem;
+  margin: 1rem 0 1rem 1.3rem;
   padding: 0;
 }
 

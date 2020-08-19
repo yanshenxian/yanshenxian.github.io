@@ -1,7 +1,6 @@
 +++
 title = "在 github上发布你的 zola 博客"
 slug = "build-and-deploy-zola-on-github-pages"
-date = 2020-08-07
 
 [taxonomies]
 categories = ["2020"]
@@ -9,7 +8,6 @@ tags = ["原创", "Zola", "wsl"]
 
 [extra]
 original_statement = true
-
 +++
 
 本地开发环境 `wsl2`，选取的博客框架 `Zola`，托管服务 `github pages`，自动构建 `github actions`，另外自定义域名还需要一个 DNS 服务商，这里我用的是 `cloudflare`，顺便白嫖 CDN。

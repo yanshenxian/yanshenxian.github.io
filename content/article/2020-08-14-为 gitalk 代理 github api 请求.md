@@ -1,7 +1,6 @@
 +++
 title = "为 gitalk 代理 github api 请求"
 slug = "gitalk-proxy-github-api-request"
-date = 2020-08-14
 
 [taxonomies]
 categories = ["2020"]
@@ -9,10 +8,32 @@ tags = ["原创", "Zola"]
 
 [extra]
 original_statement = true
+
+deprecated = true
 +++
 
-博客当前使用了 [gitalk](https://github.com/gitalk/gitalk) 来评论，但是由于国内网络问题，访问 `api.github.com` 经常被墙，所以考虑加一层代理小优化一下。
+<deprecated-reason>
+
+由于 `gitalk` 使用 `github oauth app` 来实现评论功能，其权限粒度过大，**授权 `Token` 具备用户所有的公共仓库的读写权限**，如果不小心泄露或者有人作恶，可能造成严重危害。
+
+我看网上有人说搭建博客使用一个单独的账号来创建评论 `issues` 仓库以避免泄露危害，这种说法是错误的，`Token` 泄露带来的危害是对评论用户来讲的，并不是博客主。
+
+要解决这个问题，暂时有两个方法
+1. 评论用户授权一个对自己无危害的账号来评论，另外可以在 [settings/applications](https://github.com/settings/applications) 里面取消自己大号原来的授权。
+
+2. 让网站废弃 `gitalk` 评论系统，可以用 [utterances](https://github.com/utterance/utterances) 替代，这是一个 `github app`，可以做到细粒度权限控制，只需要授权托管评论的仓库的 `issues` 相关权限即可。参考 [differences-between-github-apps-and-oauth-apps](https://docs.github.com/en/developers/apps/differences-between-github-apps-and-oauth-apps)
+
+
+一个博主完全可以通过恶意脚本或者本文所说的反代功能来收集评论用户的 `Token`。
+
+所以以下内容不再建议使用。
+
+</deprecated-reason>
 <!-- more -->
+
+---
+
+博客当前使用了 [gitalk](https://github.com/gitalk/gitalk) 来评论，但是由于国内网络问题，访问 `api.github.com` 经常被墙，所以考虑加一层代理小优化一下。
 
 gitalk 原生并不支持 api 代理，google 搜索也没有发现现成的方案，只能自己瞎鼓捣了。
 
@@ -44,6 +65,6 @@ var gitalk = new Gitalk({
 
 完整代码如下所示
 
-{{ gist(url="https://proxy.lp-yanshenxian.workers.dev/https://gist.github.com/yanshenxian/c720ecdafe160653f80a6fbd116916c5") }}
+{{ gist(url="https://gist.github.com/yanshenxian/c720ecdafe160653f80a6fbd116916c5") }}
 
 上面的脚本参考了 [在特殊地区科学使用 Disqus 评论系统](https://blog.ichr.me/post/use-disqus-conveniently/)

@@ -99,26 +99,16 @@
                 </nav>
                 {% endblock content %}
             </div>
+            {% include "even/templates/plugins/utteranc_comment.html" %}
         </main>
 
-        <footer>
-            <p>
-                © {{ config.title }} {{ now() | date(format="%Y") }} Powered by <a target="_blank"
-                    href="https://getzola.com/">Zola</a>, Theme <a target="_blank"
-                    href="https://www.getzola.org/themes/even/">even</a>.
-            </p>
-            <p>
-                {% block footer %}
-                {% endblock footer %}
-            </p>
-        </footer>
+        {% include "even/templates/plugins/footer.html" %}
     </div>
 
 
 </body>
 
 {% block js %}
-
 <script type="text/javascript" src="{{ get_url(path="even.js", trailing_slash=false) }}"></script>
 
 <script src="/js/slideout.min.js"></script>
@@ -139,48 +129,7 @@
 {% endif %}
 {% endif %}
 
-
-{% if page %}
-{% if page.extra.enable_comment is defined %}
-    {% set enable_comment = page.extra.enable_comment %}
-{% else %}
-    {% set enable_comment = config.extra.enable_comment %}
-{% endif %}
-
-{% if enable_comment %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
-<script src="/js/md5.min.js"></script>
-<script src="/js/gitalk.min.js"></script>
-<script>
-    var gitalk = new Gitalk({
-        clientID: '4b3c139651c70f51b1e3',
-        clientSecret: 'ea13a135d5e93f7abfcff3f8c1fbd2430780b1fa',
-        repo: 'yanshenxian.github.io',
-        owner: 'yanshenxian',
-        admin: ['yanshenxian'],
-        proxyGithubApi: "https://proxy-github-api.lp-yanshenxian.workers.dev",
-        id: md5(location.pathname),      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
-    })
-
-    gitalk.render('gitalk-container')
-</script>
-{% endif %}
-{% endif %}
-
-
-{% if config.extra.enable_target_blank %}
-<script>
-    var links = document.getElementsByTagName('a');
-
-    for (let link of links) {
-        if (link.hostname !== window.location.hostname && link.target === "") {
-            link.target = "_blank";
-        }
-    }
-</script>
-{% endif %}
+{% include "even/templates/plugins/_blank_a.html" %}
 {% endblock js %}
 
 </html>
