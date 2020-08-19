@@ -55,54 +55,57 @@
             </ul>
         </nav>
 
-        <header id="header">
-            <!-- <div class="logo"><a href="{{ config.base_url }}">{{ config.extra.even_title }}</a></div> -->
-            <a class="profile-icon" href="/">
-                <img src="{{ config.extra.even_avatar}}" alt="profile picture">
-            </a>
-            <nav class="menu">
-                <ul>
-                    {% for item in config.extra.even_menu %}
-                    <li>
-                        <a href="{{ item.url | replace(from="$BASE_URL", to=config.base_url) }}">
-                            {{ item.name }}
-                        </a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </nav>
-        </header>
-
-        <main>
-            <div class="content" id="mobile-panel">
-                {% block content %}
-                <div class="posts">
-                    {% for page in paginator.pages %}
-                    <article class="post">
-                        {{ post_macros::title(page=page) }}
-                        <div class="post__summary">
-                            {{ page.summary | safe }}
-                        </div>
-                        <div class="read-more">
-                            <a href="{{ page.permalink }}">Read more...</a>
-                        </div>
-                    </article>
-                    {% endfor %}
-                </div>
-                <nav class="pagination">
-                    {% if paginator.previous %}
-                    <a class="previous" href="{{ paginator.previous }}">‹ Previous</a>
-                    {% endif %}
-                    {% if paginator.next %}
-                    <a class="next" href="{{ paginator.next }}">Next ›</a>
-                    {% endif %}
+        <div class="wrapper-not-footer">
+            <header id="header">
+                <!-- <div class="logo"><a href="{{ config.base_url }}">{{ config.extra.even_title }}</a></div> -->
+                <a class="profile-icon" href="/">
+                    <img src="{{ config.extra.even_avatar}}" alt="profile picture">
+                </a>
+                <nav class="menu">
+                    <ul>
+                        {% for item in config.extra.even_menu %}
+                        <li>
+                            <a href="{{ item.url | replace(from="$BASE_URL", to=config.base_url) }}">
+                                {{ item.name }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </nav>
-                {% endblock content %}
-            </div>
-            {% include "even/templates/plugins/utteranc_comment.html" %}
-        </main>
+            </header>
+    
+            <main>
+                <div class="content" id="mobile-panel">
+                    {% block content %}
+                    <div class="posts">
+                        {% for page in paginator.pages %}
+                        <article class="post">
+                            {{ post_macros::title(page=page) }}
+                            <div class="post__summary">
+                                {{ page.summary | safe }}
+                            </div>
+                            <div class="read-more">
+                                <a href="{{ page.permalink }}">Read more...</a>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </div>
+                    <nav class="pagination">
+                        {% if paginator.previous %}
+                        <a class="previous" href="{{ paginator.previous }}">‹ Previous</a>
+                        {% endif %}
+                        {% if paginator.next %}
+                        <a class="next" href="{{ paginator.next }}">Next ›</a>
+                        {% endif %}
+                    </nav>
+                    {% endblock content %}
+                </div>
+                {% include "even/templates/plugins/utteranc_comment.html" %}
+            </main>
+        </div>
 
         {% include "even/templates/plugins/footer.html" %}
+        {% include "even/templates/plugins/back_top.html" %}
     </div>
 
 
@@ -110,6 +113,7 @@
 
 {% block js %}
 <script type="text/javascript" src="{{ get_url(path="even.js", trailing_slash=false) }}"></script>
+<script type="text/javascript" src="/js/scroll.js"></script>
 
 <script src="/js/slideout.min.js"></script>
 {% if config.extra.katex_enable %}
@@ -128,8 +132,6 @@
     onload="renderMathInElement(document.body);"></script>
 {% endif %}
 {% endif %}
-
-{% include "even/templates/plugins/_blank_a.html" %}
 {% endblock js %}
 
 </html>

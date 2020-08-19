@@ -12,24 +12,27 @@ original_statement = true
 deprecated = true
 +++
 
-<deprecated-reason>
+<deprecated-exclude>
 
-由于 `gitalk` 使用 `github oauth app` 来实现评论功能，其权限粒度过大，**授权 `Token` 具备用户所有的公共仓库的读写权限**，如果不小心泄露或者有人作恶，可能造成严重危害。
+由于 `gitalk` 使用 `oauth app` 来实现评论功能，其权限粒度过大，**授权 `Token` 具备用户所有的公共仓库的读写权限**，如果不小心泄露或者有人作恶，可能造成严重危害。
 
 我看网上有人说搭建博客使用一个单独的账号来创建评论 `issues` 仓库以避免泄露危害，这种说法是错误的，`Token` 泄露带来的危害是对评论用户来讲的，并不是博客主。
 
 要解决这个问题，暂时有两个方法
 1. 评论用户授权一个对自己无危害的账号来评论，另外可以在 [settings/applications](https://github.com/settings/applications) 里面取消自己大号原来的授权。
 
-2. 让网站废弃 `gitalk` 评论系统，可以用 [utterances](https://github.com/utterance/utterances) 替代，这是一个 `github app`，可以做到细粒度权限控制，只需要授权托管评论的仓库的 `issues` 相关权限即可。参考 [differences-between-github-apps-and-oauth-apps](https://docs.github.com/en/developers/apps/differences-between-github-apps-and-oauth-apps)
+2. 让网站废弃 `gitalk` 评论系统，可以用 [utterances](https://github.com/utterance/utterances) 替代，这是一个 `github app`，可以做到细粒度权限控制，只需要授权托管评论的仓库的 `issues` 相关权限即可。
 
-
-一个博主完全可以通过恶意脚本或者本文所说的反代功能来收集评论用户的 `Token`。
-
-所以以下内容不再建议使用。
-
-</deprecated-reason>
+</deprecated-exclude>
 <!-- more -->
+<deprecated-exclude>
+
+一个博主完全可以通过恶意脚本或者本文所说的反代功能来收集评论用户的 `Token`。参考链接如下：
+
+- [differences-between-github-apps-and-oauth-apps](https://docs.github.com/en/developers/apps/differences-between-github-apps-and-oauth-apps)
+- [建议大家弃用 Gitalk 和 Gitment 等权限过高的 Github OAuth App](https://www.v2ex.com/t/535608)  
+
+</deprecated-exclude>
 
 ---
 
