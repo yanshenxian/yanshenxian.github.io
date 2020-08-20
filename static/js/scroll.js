@@ -12,7 +12,7 @@ function getScrollPercent() {
         st = 'scrollTop',
         sh = 'scrollHeight';
     var percent = (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
-    return parseInt(percent);
+    return Math.round(percent);
 }
 
 function scrollTo(element, to, duration) {
@@ -29,7 +29,8 @@ function scrollTo(element, to, duration) {
 // a _blank
 var links = document.getElementsByTagName('a');
 
-for (let link of links) {
+for (let i = 0; i < links.length; i++) {
+    var link = links[i];
     if (link.hostname !== window.location.hostname) {
         link.target = "_blank";
     }

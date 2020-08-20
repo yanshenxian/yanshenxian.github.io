@@ -68,6 +68,6 @@ var gitalk = new Gitalk({
 
 完整代码如下所示
 
-{{ gist(url="https://gist.github.com/yanshenxian/c720ecdafe160653f80a6fbd116916c5") }}
+{{ gist(gistId="yanshenxian/c720ecdafe160653f80a6fbd116916c5") }}
 
 上面的脚本参考了 [在特殊地区科学使用 Disqus 评论系统](https://blog.ichr.me/post/use-disqus-conveniently/)
