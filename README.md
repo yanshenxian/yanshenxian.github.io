@@ -18,5 +18,6 @@
 - favicon.ico 和 sideout.min.js 脚本本地化，见 `static/` 目录，主题里面用的 cdn 访问速度太慢了
 - 修改文章路径以 `article` (sub section) 子目录开头，还可以根据年/月来创建子文件夹，但是子目录的 `_index.md` 必须包含 `transparent = true` 的配置
 - 集成 [utteranc](https://utteranc.es/) 评论，相关配置 `config.extra.comment_repo`、`config.extra.enable_comment`、`page.extra.enable_comment`
-- 所有外链新标签打开 `config.extra.enable_target_blank`
+- 优化 `gist` 脚本异步渲染
+- 文章外链新标签打开 && 快速返回顶部按钮以及阅读百分比显示  `static/js/scroll.js`
 - ...
