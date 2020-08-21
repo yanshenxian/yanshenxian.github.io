@@ -4,26 +4,26 @@ slug = "build-and-deploy-zola-on-github-pages"
 
 [taxonomies]
 categories = ["2020"]
-tags = ["原创", "Zola", "wsl"]
+tags = ["原创", "Zola", "WSL"]
 
 [extra]
 original_statement = true
 +++
 
-本地开发环境 `wsl2`，选取的博客框架 `Zola`，托管服务 `github pages`，自动构建 `github actions`，另外自定义域名还需要一个 DNS 服务商，这里我用的是 `cloudflare`，顺便白嫖 CDN。
+本地开发环境 `WSL2`，选取的博客框架 `Zola`，托管服务 `github pages`，自动构建 `github actions`，另外自定义域名还需要一个 DNS 服务商，这里我用的是 `cloudflare`，顺便白嫖 CDN。
 
 `Rust` 是个很酷的语言。
 <!-- more -->
 
 ## 配置 Wsl2 开发环境
 
-因为刚从 Mac OS 切到 Win10 开发环境，也是第一次尝试 `wsl2`。虽然这没有 Mac OS 或者 Linux 好用，但是也极大的增强了 win10 开发的体验。
+因为刚从 Mac OS 切到 Win10 开发环境，也是第一次尝试 `WSL2`。虽然这没有 Mac OS 或者 Linux 好用，但是也极大的增强了 win10 开发的体验。
 
-1. 首先根据 [官网文档](https://docs.microsoft.com/zh-cn/windows/wsl/install-win10) 开启 `wsl2`
+1. 首先根据 [官网文档](https://docs.microsoft.com/zh-cn/windows/wsl/install-win10) 开启 `WSL2`
 
-2. 运行 `wsl` 命令启动环境，这个时候你就可以看到一个简洁的 linux 终端了，**wsl2 的文件和端口是和宿主机共享的。** 比如你 c 盘上的文件会映射到 `/mnt/c/` 这个路径，你在 wsl 里面启动了一个 web 服务监听端口 8080，你就可以在宿主机上直接使用 127.0.0.1:8080 访问它。
+2. 运行 `WSL` 命令启动环境，这个时候你就可以看到一个简洁的 linux 终端了，**wsl2 的文件和端口是和宿主机共享的。** 比如你 c 盘上的文件会映射到 `/mnt/c/` 这个路径，你在 WSL 里面启动了一个 web 服务监听端口 8080，你就可以在宿主机上直接使用 127.0.0.1:8080 访问它。
 
-3. 然后像在 Linux 上一样配置开发环境，修改国内镜像、安装 git、zsh、oh-my-zsh等等操作，你可能还会在宿主机上安装 VS Code + `Remote - WSL` 插件，这个用来管理 wsl 里的项目很方便，它的终端默认就是 wsl 的终端。另外也可以换个漂亮点的终端替换掉 cmd 或者 powershell，`windows Terminal` 就是个不错的选择。
+3. 然后像在 Linux 上一样配置开发环境，修改国内镜像、安装 git、zsh、oh-my-zsh等等操作，你可能还会在宿主机上安装 VS Code + `Remote - WSL` 插件，这个用来管理 WSL 里的项目很方便，它的终端默认就是 WSL 的终端。另外也可以换个漂亮点的终端替换掉 cmd 或者 powershell，`windows Terminal` 就是个不错的选择。
 
 4. 花了一堆时间终于搞得有模有样了，你可能还会碰到一些问题，它终究不是一个完整的 linux 。。。比如 `ping` 命令无法使用，搜索发现需要 `sudo chmod u+s` 下，再比如域名解析会莫名其妙的出现问题，解决方法是修改 `resolv.conf` 文件 (必须先在 `wsl.conf` 里设置 generateResolvConf 参数否则重启无效)
 ```zsh
@@ -75,16 +75,7 @@ config.toml  content  sass  static  templates  themes
 ```
 基础的架子已经生成好了，为了了解 `config.toml` 配置文件，你需要阅读下 [Zola 文档](https://www.getzola.org/documentation/getting-started/configuration/)，en 可以不求甚解...
 
-2. 选择一个你喜欢的主题并配置它，Zola 提供的 [主题列表](https://www.getzola.org/themes/) 有限，但是对我来说够用了。。我选的是 [even](https://www.getzola.org/themes/even/)，基于我自己的喜好，我小小的改动了一些
-
-- 参考 [simple-dev-blog](https://www.getzola.org/themes/simple-dev-blog/) 把头部显示的站点名称改成了头像
-- 参考 [anpu](https://www.getzola.org/themes/anpu/) 加了个 footer
-- 修改了默认的锚点符号 见 `templates/anchor-link.html`
-- favicon.ico 和 sideout.min.js 脚本本地化，见 `static/` 目录，主题里面用的 cdn 访问速度太慢了
-- 修改文章路径以 `article` (sub section) 子目录开头，还可以根据年/月来创建子文件夹，但是子目录的 `_index.md` 必须包含 `transparent = true` 的配置
-- 集成 [gitalk](https://github.com/gitalk/gitalk) 评论，配置在 `config.extra.enable_comment`，并且文章单独可以配置是否开启评论 `page.extra.enable_comment`
-- 所有外链新标签打开 `config.extra.enable_target_blank`
-- ...
+2. 选择一个你喜欢的主题并配置它，Zola 提供的 [主题列表](https://www.getzola.org/themes/) 有限，但是对我来说够用了。。我选的是 [even](https://www.getzola.org/themes/even/)，基于我自己的喜好，我小小的改动了一些。可以参考 [README.md](https://github.com/yanshenxian/yanshenxian.github.io/blob/master/README.md)
 
 你可以从我的 github 博客仓库 拷贝我的配置和修改后的主题，`even` 主题在 `themes/even/content` 里自带了一些示例文章，可以参考下文章编写规则（简单说就是一些 metadata 头部 + markdown 内容）
 

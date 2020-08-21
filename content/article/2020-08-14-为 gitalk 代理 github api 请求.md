@@ -27,10 +27,10 @@ deprecated = true
 <!-- more -->
 <deprecated-exclude>
 
-一个博主完全可以通过恶意脚本或者本文所说的反代功能来收集评论用户的 `Token`。参考链接如下：
+一个博主完全可以通过恶意脚本或者本文所说的反代功能来收集评论用户的 `Token`。关于安全讨论的参考链接如下：
 
-- [differences-between-github-apps-and-oauth-apps](https://docs.github.com/en/developers/apps/differences-between-github-apps-and-oauth-apps)
 - [建议大家弃用 Gitalk 和 Gitment 等权限过高的 Github OAuth App](https://www.v2ex.com/t/535608)  
+- [differences-between-github-apps-and-oauth-apps](https://docs.github.com/en/developers/apps/differences-between-github-apps-and-oauth-apps)
 
 </deprecated-exclude>
 
