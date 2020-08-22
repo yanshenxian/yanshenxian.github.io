@@ -26,14 +26,8 @@ original_statement = true
 3. 然后像在 Linux 上一样配置开发环境，修改国内镜像、安装 git、zsh、oh-my-zsh等等操作，你可能还会在宿主机上安装 VS Code + `Remote - WSL` 插件，这个用来管理 WSL 里的项目很方便，它的终端默认就是 WSL 的终端。另外也可以换个漂亮点的终端替换掉 cmd 或者 powershell，`windows Terminal` 就是个不错的选择。
 
 4. 花了一堆时间终于搞得有模有样了，你可能还会碰到一些问题，它终究不是一个完整的 linux 。。。比如 `ping` 命令无法使用，搜索发现需要 `sudo chmod u+s` 下，再比如域名解析会莫名其妙的出现问题，解决方法是修改 `resolv.conf` 文件 (必须先在 `wsl.conf` 里设置 generateResolvConf 参数否则重启无效)
-```zsh
-λ cat /etc/wsl.conf
-[network]
-generateResolvConf = false
 
-λ cat /etc/resolv.conf
-nameserver 8.8.8.8
-```
+这里我总结了另外一篇文章 [wsl 配置代理遇到的一些坑](https://blog.yanshenxian.xyz/article/having-problem-with-wsl-proxy/)。
 
 ## Wsl2 中安装 Zola
 
@@ -54,7 +48,8 @@ nameserver 8.8.8.8
 
 为了方便开发，我们把项目放在 wsl 子系统里面，之后在宿主机上用 VSCode 进行开发。
 
-1. 初始化 Zola 项目
+### 初始化 Zola 项目
+
 ```zsh
 λ zola init my-blog
 Welcome to Zola!
@@ -73,13 +68,18 @@ Visit https://www.getzola.org for the full documentation.
 λ cd my-blog && ls
 config.toml  content  sass  static  templates  themes
 ```
-基础的架子已经生成好了，为了了解 `config.toml` 配置文件，你需要阅读下 [Zola 文档](https://www.getzola.org/documentation/getting-started/configuration/)，en 可以不求甚解...
+基础的架子已经生成好了，为了了解 `config.toml` 配置文件，配置相关参考 [Zola 文档](https://www.getzola.org/documentation/getting-started/configuration/)
 
-2. 选择一个你喜欢的主题并配置它，Zola 提供的 [主题列表](https://www.getzola.org/themes/) 有限，但是对我来说够用了。。我选的是 [even](https://www.getzola.org/themes/even/)，基于我自己的喜好，我小小的改动了一些。可以参考 [README.md](https://github.com/yanshenxian/yanshenxian.github.io/blob/master/README.md)
+### 配置主题
+
+Zola 提供的 [主题列表](https://www.getzola.org/themes/) 有限，但是对我来说够用了。
+
+这里我选的是 [even](https://www.getzola.org/themes/even/)，基于我自己的喜好，我小小的改动了一些。可以参考 [README.md](https://github.com/yanshenxian/yanshenxian.github.io/blob/master/README.md)
 
 你可以从我的 github 博客仓库 拷贝我的配置和修改后的主题，`even` 主题在 `themes/even/content` 里自带了一些示例文章，可以参考下文章编写规则（简单说就是一些 metadata 头部 + markdown 内容）
 
-3. 本地运行下看看效果
+### 本地运行
+
 ```zsh
 λ zola serve
 Building site...
@@ -92,6 +92,9 @@ Press Ctrl+C to stop
 Web server is available at http://127.0.0.1:1025
 ```
 为了避免没有文章的尴尬，可以先 `cp -r themes/even/content content/` 构建部署下主题自带的测试文章
+
+>我测试过不开启索引的情况下， Zola 生成 1万 篇文章耗时不超过 10s，文章都是抓取的真实博客。所以它的性能还是非常不错的。
+但是开启索引就有点问题了。程序莫名卡住。原因待查！
 
 然后用宿主机访问 http://127.0.0.1:1025 就能看到搭建好的博客网站了
 
@@ -111,12 +114,11 @@ Web server is available at http://127.0.0.1:1025
 
 5. 将本地项目 push 到仓库的 `master` 分支，如果没问题，可以在 `commit id` 旁边看见构建的标志，脚本会自动构建出一个 `gh-pages` 分支，里面生成了所有的静态文件
 
-6. 在仓库的 `Settings->Github pages` 确认相关配置，**page build 的 source branch 是 gh-pages**，如下图所示
+6. 在仓库的 `Settings->Github pages` 确认相关配置，**page build 的 source branch 是 gh-pages**
 ![github-pages-settings](/image/2020/08/github-pages-settings.bmp)
 
-7. 在 [Cloudflare](https://dash.cloudflare.com/) 中设置 DNS CNAME 以及设置 CF 的 CDN （比起 Github 经常被墙... cf 好点），如下图所示
+7. 在 [Cloudflare](https://dash.cloudflare.com/) 中设置 DNS CNAME 以及启用 cf 的 cdn proxy，比起 Github 经常被墙... cf 好点
 ![github-pages-cname-setting](/image/2020/08/github-pages-cname-setting.bmp)
-
 **如果 github pages settings 中设置了强制 ssl，那么 cf 中 ssl 也必须设置为 Full，要不然会造成无限重定向。**
 
 8. 现在你可以用你的自定义域名访问你的博客了，Enjoy~

@@ -41,7 +41,10 @@ function initMobile() {
 }
 function initToc() {
   var $toclink = document.querySelectorAll('.toc-link')
-  var $headerlink = document.querySelectorAll('.post-content h1 , .post-content h2')
+
+  // 看你的写作习惯，我习惯在正文里面从二级标题开始
+  var $headerlink = document.querySelectorAll('.post-content h2, .post-content h3')
+
   var $tocLinkLis = document.querySelectorAll('.post-toc-content li')
 
   var searchActiveTocIndex = function (array, target) {

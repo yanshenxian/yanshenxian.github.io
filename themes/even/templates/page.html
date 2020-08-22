@@ -14,13 +14,13 @@
                 <li>
                     <a href="{{h1.permalink | safe}}" class="toc-link">{{ h1.title }}</a>
                     {% if h1.children %}
-                    <ul>
+                    <ol>
                         {% for h2 in h1.children %}
                         <li>
                             <a href="{{h2.permalink | safe}}" class="toc-link">{{ h2.title }}</a>
                         </li>
                         {% endfor %}
-                    </ul>
+                    </ol>
                     {% endif %}
                 </li>
                 {% endfor %}

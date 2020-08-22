@@ -1,0 +1,30 @@
+{% macro header(level) %}
+    {% if level == 1 %}
+    
+    {% include "even/templates/header/h1.html" %} 
+    
+    {% elif level == 2 %}
+
+    {% include "even/templates/header/h2.html" %} 
+
+    {% elif level == 3 %}
+
+    {% include "even/templates/header/h3.html" %} 
+
+
+    {% elif level == 4 %}
+
+    {% include "even/templates/header/h4.html" %} 
+
+
+    {% elif level == 5 %}
+
+    {% include "even/templates/header/h5.html" %} 
+
+
+    {% elif level == 6 %}
+
+    {% include "even/templates/header/h6.html" %} 
+
+    {% endif %}
+{% endmacro header %}

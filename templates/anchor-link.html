@@ -1,3 +1,5 @@
+{% import "even/templates/header_macros.html" as macros %}
+
 <a class="zola-anchor" href="#{{ id }}" aria-label="Anchor link for: {{ id }}">
-    {% include "anchor-svg.html" %} 
+    {{ macros::header(level = level) }}
 </a>
