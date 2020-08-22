@@ -48,7 +48,7 @@ original_statement = true
 
 为了方便开发，我们把项目放在 wsl 子系统里面，之后在宿主机上用 VSCode 进行开发。
 
-### 初始化 Zola 项目
+### 初始化
 
 ```zsh
 λ zola init my-blog
