@@ -1,6 +1,6 @@
 #header {
   // padding: 20px;
-  padding: 10px 20px 0 20px;
+  padding: 10px 20px 10px 20px;
   display: flex;
   justify-content: space-between;
 
@@ -14,10 +14,14 @@
     }
   }
 
-  a.profile-icon img {
-    border-radius: 50%;
-    max-height: 50px;
-    margin: 5px auto;
+  a.profile-icon  {
+    margin-left: -3px;
+
+    img {
+      border-radius: 50%;
+      max-height: 50px;
+      margin: 5px auto;
+    }
   }
   
   .menu {

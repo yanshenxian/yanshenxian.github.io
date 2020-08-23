@@ -9,6 +9,14 @@ main {
     text-decoration: none !important;
   }
 
+  img {
+    margin: 10px 0;
+    max-width: 100%;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
   .content {
     padding: 0 20px;
   }
@@ -221,6 +229,14 @@ footer {
 .wrapper-not-footer {
   min-height: calc(100vh - 64px);
 }
+
+.back-to-top img {
+  max-width: 100%;
+  height: auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+
 
 // footer {
 //   text-align: center;
