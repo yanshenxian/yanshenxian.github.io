@@ -1,0 +1,702 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh">
+	<title>yanshenxian&#x27;s blog</title>
+	<subtitle>兴趣驱动分享</subtitle>
+	<link href="https://blog.yanshenxian.xyz/atom.xml" rel="self" type="application/atom+xml"/>
+	<link href="https://blog.yanshenxian.xyz"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2020-08-29T00:00:00+00:00</updated>
+	<id>https://blog.yanshenxian.xyz/atom.xml</id>
+	<entry xml:lang="zh">
+		<title>在 wsl 上配置 java 开发环境</title>
+		<published>2020-08-29T00:00:00+00:00</published>
+		<updated>2020-08-29T00:00:00+00:00</updated>
+		<link href="https://blog.yanshenxian.xyz/article/java-development-in-wsl2/" type="text/html"/>
+		<id>https://blog.yanshenxian.xyz/article/java-development-in-wsl2/</id>
+		<content type="html">&lt;p&gt;本以为现在的 wsl2 用于 java 开发是件很简单的事，之前我在 windows 上安装了 idea，只需要设置下 shell path 为 wsl.exe，终端、编译器、git 什么的都可以用，这看起来似乎很不错，但是实际上手项目开发的时候，才发现真实问题多多，远没有在 vs code 的 wsl2 使用方便。&lt;&#x2F;p&gt;
+&lt;span id=&quot;continue-reading&quot;&gt;&lt;&#x2F;span&gt;&lt;h2 id=&quot;dang-qian-que-xian&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#dang-qian-que-xian&quot; aria-label=&quot;Anchor link for: dang-qian-que-xian&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+    
+
+&lt;&#x2F;a&gt;
+当前缺陷&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;wsl2-fang-wen-windows-wen-jian-xi-tong&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#wsl2-fang-wen-windows-wen-jian-xi-tong&quot; aria-label=&quot;Anchor link for: wsl2-fang-wen-windows-wen-jian-xi-tong&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm9.989 7.53l1.726-.209c.055.44.203.777.445 1.01.24.232.533.349.876.349.368 0 .678-.14.93-.42.251-.279.377-.655.377-1.13 0-.448-.12-.803-.362-1.066a1.153 1.153 0 0 0-.882-.393c-.228 0-.501.044-.819.133l.197-1.453c.482.012.85-.092 1.105-.315.253-.222.38-.517.38-.885 0-.313-.093-.563-.279-.75-.186-.185-.434-.278-.743-.278a1.07 1.07 0 0 0-.78.317c-.216.212-.347.52-.394.927l-1.644-.28c.114-.562.287-1.012.517-1.348.231-.337.553-.601.965-.794a3.24 3.24 0 0 1 1.387-.289c.876 0 1.579.28 2.108.838.436.457.653.973.653 1.549 0 .817-.446 1.468-1.339 1.955.533.114.96.37 1.28.768.319.398.478.878.478 1.441 0 .817-.298 1.513-.895 2.088-.596.576-1.339.864-2.228.864-.842 0-1.54-.243-2.094-.727-.555-.485-.876-1.118-.965-1.901z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+
+    
+
+&lt;&#x2F;a&gt;
+wsl2 访问 windows 文件系统&lt;&#x2F;h3&gt;
+&lt;p&gt;一开始我的项目文件是放在 windows 环境的，idea 也是安装在 window 上。idea 配置好了，终端确实能用，但是速度忒慢。执行个 git 或者 clear 命令就能卡好几秒。&lt;&#x2F;p&gt;
+&lt;p&gt;问题探讨详见 &lt;a href=&quot;https:&#x2F;&#x2F;v2ex.com&#x2F;t&#x2F;701411&quot;&gt;idea 2020.2 使用 WSL2 终端太卡了&lt;&#x2F;a&gt;。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;总结&lt;&#x2F;strong&gt;: 当前的 wsl2 访问 windows 文件系统，No!&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;idea-dui-wsl2-de-zhi-chi-bing-bu-wan-shan&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#idea-dui-wsl2-de-zhi-chi-bing-bu-wan-shan&quot; aria-label=&quot;Anchor link for: idea-dui-wsl2-de-zhi-chi-bing-bu-wan-shan&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm9.989 7.53l1.726-.209c.055.44.203.777.445 1.01.24.232.533.349.876.349.368 0 .678-.14.93-.42.251-.279.377-.655.377-1.13 0-.448-.12-.803-.362-1.066a1.153 1.153 0 0 0-.882-.393c-.228 0-.501.044-.819.133l.197-1.453c.482.012.85-.092 1.105-.315.253-.222.38-.517.38-.885 0-.313-.093-.563-.279-.75-.186-.185-.434-.278-.743-.278a1.07 1.07 0 0 0-.78.317c-.216.212-.347.52-.394.927l-1.644-.28c.114-.562.287-1.012.517-1.348.231-.337.553-.601.965-.794a3.24 3.24 0 0 1 1.387-.289c.876 0 1.579.28 2.108.838.436.457.653.973.653 1.549 0 .817-.446 1.468-1.339 1.955.533.114.96.37 1.28.768.319.398.478.878.478 1.441 0 .817-.298 1.513-.895 2.088-.596.576-1.339.864-2.228.864-.842 0-1.54-.243-2.094-.727-.555-.485-.876-1.118-.965-1.901z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+
+    
+
+&lt;&#x2F;a&gt;
+idea 对 wsl2 的支持并不完善&lt;&#x2F;h3&gt;
+&lt;p&gt;既然 windows 上的 idea 用 wsl2 访问 windows 文件系统有问题，那我只要把项目放到 wsl2 里不就好了吗？&lt;&#x2F;p&gt;
+&lt;p&gt;虽然 JetBrains 已经在慢慢支持 wsl 了，比如可以直接 open wsl2 里的项目，还可以添加 wsl2 里的 node 框架。但是 idea 对 java 开发的支持还是很差。这里我遇到了两个问题。&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;wu-fa-shi-bie-multi-module-xiang-mu&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#wu-fa-shi-bie-multi-module-xiang-mu&quot; aria-label=&quot;Anchor link for: wu-fa-shi-bie-multi-module-xiang-mu&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3.5 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V11h-5v4.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v4.5zm13.55 10v-1.873h-3.81v-1.561l4.037-5.91h1.498v5.904h1.156v1.567h-1.156V18.5H17.05zm0-3.44v-3.18l-2.14 3.18h2.14z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+
+    
+
+&lt;&#x2F;a&gt;
+无法识别 multi-module 项目&lt;&#x2F;h4&gt;
+&lt;p&gt;idea 只能识别到 parent，子 module 的加载会出错，无法正确配置 maven 项目。具体表现就是你看不见 Run 按钮，点击类里的定义无法跳转。&lt;&#x2F;p&gt;
+&lt;p&gt;观察发现子 module 的 pom.xml 报红，提示 &lt;code&gt;C:\wsl$\Debian\home\user\work\xxx\pom.xml (系统找不到指定的路径。).&lt;&#x2F;code&gt; 看起来是识别 parent pom 位置错乱了。&lt;&#x2F;p&gt;
+&lt;p&gt;问题追踪 &lt;a href=&quot;https:&#x2F;&#x2F;youtrack.jetbrains.com&#x2F;issue&#x2F;IDEA-249046&quot;&gt;issue&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;当然你看到这说这也勉强能用，比如我就把它当成一个文本编辑器用，要运行直接在终端里面用 mvn 命令运行。或者我不用多 module 项目不久行了吗。一开始我也是这么将就的...&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;wu-fa-jian-ting-wen-jian-xiu-gai&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#wu-fa-jian-ting-wen-jian-xiu-gai&quot; aria-label=&quot;Anchor link for: wu-fa-jian-ting-wen-jian-xiu-gai&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3.5 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V11h-5v4.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v4.5zm13.55 10v-1.873h-3.81v-1.561l4.037-5.91h1.498v5.904h1.156v1.567h-1.156V18.5H17.05zm0-3.44v-3.18l-2.14 3.18h2.14z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+
+    
+
+&lt;&#x2F;a&gt;
+无法监听文件修改&lt;&#x2F;h4&gt;
+&lt;p&gt;我尝试着拆成单 module 项目，确实，这个时候可以正确自动配置了。&lt;&#x2F;p&gt;
+&lt;p&gt;但是你会看到这样一条 &lt;code&gt;23:10 External file changes sync may be slow: Project files cannot be watched (are they under network mount?)&lt;&#x2F;code&gt; 警告提示。&lt;&#x2F;p&gt;
+&lt;p&gt;结果就是，你第一次运行正常，因为这个时候 target 目录是空的，它必须重新构建，如果再改了改源码重新运行，它还是执行之前的编译结果。&lt;&#x2F;p&gt;
+&lt;p&gt;问题追踪 &lt;a href=&quot;https:&#x2F;&#x2F;youtrack.jetbrains.com&#x2F;issue&#x2F;IDEA-249301&quot;&gt;issue&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;jie-jue-fang-an&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#jie-jue-fang-an&quot; aria-label=&quot;Anchor link for: jie-jue-fang-an&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+    
+
+&lt;&#x2F;a&gt;
+解决方案&lt;&#x2F;h2&gt;
+&lt;p&gt;最后我还是不得不用上了远程桌面环境...&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;wsl2-zhuo-mian-huan-jing&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#wsl2-zhuo-mian-huan-jing&quot; aria-label=&quot;Anchor link for: wsl2-zhuo-mian-huan-jing&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm9.989 7.53l1.726-.209c.055.44.203.777.445 1.01.24.232.533.349.876.349.368 0 .678-.14.93-.42.251-.279.377-.655.377-1.13 0-.448-.12-.803-.362-1.066a1.153 1.153 0 0 0-.882-.393c-.228 0-.501.044-.819.133l.197-1.453c.482.012.85-.092 1.105-.315.253-.222.38-.517.38-.885 0-.313-.093-.563-.279-.75-.186-.185-.434-.278-.743-.278a1.07 1.07 0 0 0-.78.317c-.216.212-.347.52-.394.927l-1.644-.28c.114-.562.287-1.012.517-1.348.231-.337.553-.601.965-.794a3.24 3.24 0 0 1 1.387-.289c.876 0 1.579.28 2.108.838.436.457.653.973.653 1.549 0 .817-.446 1.468-1.339 1.955.533.114.96.37 1.28.768.319.398.478.878.478 1.441 0 .817-.298 1.513-.895 2.088-.596.576-1.339.864-2.228.864-.842 0-1.54-.243-2.094-.727-.555-.485-.876-1.118-.965-1.901z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+
+    
+
+&lt;&#x2F;a&gt;
+wsl2 桌面环境&lt;&#x2F;h3&gt;
+&lt;p&gt;参考文章: &lt;a href=&quot;https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;149501381&quot;&gt;WSL2使用xrdp实现图形桌面&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;an-zhuang-xrdp&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#an-zhuang-xrdp&quot; aria-label=&quot;Anchor link for: an-zhuang-xrdp&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3.5 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V11h-5v4.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v4.5zm13.55 10v-1.873h-3.81v-1.561l4.037-5.91h1.498v5.904h1.156v1.567h-1.156V18.5H17.05zm0-3.44v-3.18l-2.14 3.18h2.14z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+
+    
+
+&lt;&#x2F;a&gt;
+安装 xrdp&lt;&#x2F;h4&gt;
+&lt;p&gt;执行 &lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#ffffff;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#323232;&quot;&gt;sudo apt-get update
+sudo apt install -y xfce4 xrdp
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;我的环境是 debian，默认使用了 lightdm，不需要手动选择。&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;xiu-gai-xrdp-mo-ren-duan-kou-fang-zhi-yu-windows-de-duan-kou-chong-tu&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#xiu-gai-xrdp-mo-ren-duan-kou-fang-zhi-yu-windows-de-duan-kou-chong-tu&quot; aria-label=&quot;Anchor link for: xiu-gai-xrdp-mo-ren-duan-kou-fang-zhi-yu-windows-de-duan-kou-chong-tu&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3.5 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V11h-5v4.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v4.5zm13.55 10v-1.873h-3.81v-1.561l4.037-5.91h1.498v5.904h1.156v1.567h-1.156V18.5H17.05zm0-3.44v-3.18l-2.14 3.18h2.14z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+
+    
+
+&lt;&#x2F;a&gt;
+修改 xrdp 默认端口，防止与 windows 的端口冲突&lt;&#x2F;h4&gt;
+&lt;pre style=&quot;background-color:#ffffff;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#323232;&quot;&gt;λ sudo vim &#x2F;etc&#x2F;xrdp&#x2F;xrdp.ini
+
+...
+&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#969896;&quot;&gt;# 修改下面这一行,将默认的3389改成其他端口即可
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt;port=3390
+...
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h4 id=&quot;wei-dang-qian-yong-hu-zhi-ding-deng-lu-sessionlei-xing&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#wei-dang-qian-yong-hu-zhi-ding-deng-lu-sessionlei-xing&quot; aria-label=&quot;Anchor link for: wei-dang-qian-yong-hu-zhi-ding-deng-lu-sessionlei-xing&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3.5 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V11h-5v4.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v4.5zm13.55 10v-1.873h-3.81v-1.561l4.037-5.91h1.498v5.904h1.156v1.567h-1.156V18.5H17.05zm0-3.44v-3.18l-2.14 3.18h2.14z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+
+    
+
+&lt;&#x2F;a&gt;
+为当前用户指定登录session类型&lt;&#x2F;h4&gt;
+&lt;p&gt;注意这一步很重要,如果不设置的话会导致后面远程桌面连接上闪退&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#ffffff;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#323232;&quot;&gt;λ vim ~&#x2F;.xsession
+
+&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#969896;&quot;&gt;# 写入下面内容(就一行)
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt;xfce4-session
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h4 id=&quot;qi-dong-xrdp&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#qi-dong-xrdp&quot; aria-label=&quot;Anchor link for: qi-dong-xrdp&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3.5 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V11h-5v4.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v4.5zm13.55 10v-1.873h-3.81v-1.561l4.037-5.91h1.498v5.904h1.156v1.567h-1.156V18.5H17.05zm0-3.44v-3.18l-2.14 3.18h2.14z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+
+    
+
+&lt;&#x2F;a&gt;
+启动 xrdp&lt;&#x2F;h4&gt;
+&lt;p&gt;wsl2 里没法自启动，所以需要每次手动启动。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;sudo &#x2F;etc&#x2F;init.d&#x2F;xrdp start&lt;&#x2F;code&gt; 或者 &lt;code&gt;sudo service xrdp start&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;zui-hou-yuan-cheng-fang-wen-jiu-ok-liao&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#zui-hou-yuan-cheng-fang-wen-jiu-ok-liao&quot; aria-label=&quot;Anchor link for: zui-hou-yuan-cheng-fang-wen-jiu-ok-liao&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3.5 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V11h-5v4.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v4.5zm13.55 10v-1.873h-3.81v-1.561l4.037-5.91h1.498v5.904h1.156v1.567h-1.156V18.5H17.05zm0-3.44v-3.18l-2.14 3.18h2.14z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+
+    
+
+&lt;&#x2F;a&gt;
+最后远程访问就 ok 了&lt;&#x2F;h4&gt;
+&lt;p&gt;在 windows 系统中运行 &lt;code&gt;mstsc&lt;&#x2F;code&gt; 命令打开远程桌面连接,地址输入 &lt;code&gt;localhost:3390&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;ruan-jian-pei-zhi&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#ruan-jian-pei-zhi&quot; aria-label=&quot;Anchor link for: ruan-jian-pei-zhi&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm9.989 7.53l1.726-.209c.055.44.203.777.445 1.01.24.232.533.349.876.349.368 0 .678-.14.93-.42.251-.279.377-.655.377-1.13 0-.448-.12-.803-.362-1.066a1.153 1.153 0 0 0-.882-.393c-.228 0-.501.044-.819.133l.197-1.453c.482.012.85-.092 1.105-.315.253-.222.38-.517.38-.885 0-.313-.093-.563-.279-.75-.186-.185-.434-.278-.743-.278a1.07 1.07 0 0 0-.78.317c-.216.212-.347.52-.394.927l-1.644-.28c.114-.562.287-1.012.517-1.348.231-.337.553-.601.965-.794a3.24 3.24 0 0 1 1.387-.289c.876 0 1.579.28 2.108.838.436.457.653.973.653 1.549 0 .817-.446 1.468-1.339 1.955.533.114.96.37 1.28.768.319.398.478.878.478 1.441 0 .817-.298 1.513-.895 2.088-.596.576-1.339.864-2.228.864-.842 0-1.54-.243-2.094-.727-.555-.485-.876-1.118-.965-1.901z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+
+    
+
+&lt;&#x2F;a&gt;
+软件配置&lt;&#x2F;h3&gt;
+&lt;p&gt;这就像配置 linux 实机桌面环境意义，你需要安装很多软件方便开发。&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;mei-hua-zhong-duan-mo-ni-qi&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#mei-hua-zhong-duan-mo-ni-qi&quot; aria-label=&quot;Anchor link for: mei-hua-zhong-duan-mo-ni-qi&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3.5 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V11h-5v4.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v4.5zm13.55 10v-1.873h-3.81v-1.561l4.037-5.91h1.498v5.904h1.156v1.567h-1.156V18.5H17.05zm0-3.44v-3.18l-2.14 3.18h2.14z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+
+    
+
+&lt;&#x2F;a&gt;
+美化终端模拟器&lt;&#x2F;h4&gt;
+&lt;p&gt;自带的 &lt;code&gt;x-terminal-emulator&lt;&#x2F;code&gt; 实在是太丑了。这里我用了 &lt;code&gt;terminator&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;sudo apt-get install terminator&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;安装完之后就会自动替换掉原来的 &lt;code&gt;x-terminal-emulator&lt;&#x2F;code&gt; 链接&lt;&#x2F;p&gt;
+&lt;p&gt;这个终端只是在桌面环境里面用的，我更喜欢用在 windows 上用 &lt;a href=&quot;https:&#x2F;&#x2F;www.microsoft.com&#x2F;zh-cn&#x2F;p&#x2F;windows-terminal&#x2F;9n0dx20hk701?activetab=pivot:overviewtab&quot;&gt;windows terminal&lt;&#x2F;a&gt;，双屏配合着干活&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;idea-linux-ban&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#idea-linux-ban&quot; aria-label=&quot;Anchor link for: idea-linux-ban&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3.5 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V11h-5v4.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v4.5zm13.55 10v-1.873h-3.81v-1.561l4.037-5.91h1.498v5.904h1.156v1.567h-1.156V18.5H17.05zm0-3.44v-3.18l-2.14 3.18h2.14z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+
+    
+
+&lt;&#x2F;a&gt;
+idea linux 版&lt;&#x2F;h4&gt;
+&lt;p&gt;这个不用多说，官网直接下就行了&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;zhong-wen-shu-ru-fa&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#zhong-wen-shu-ru-fa&quot; aria-label=&quot;Anchor link for: zhong-wen-shu-ru-fa&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3.5 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V11h-5v4.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v4.5zm13.55 10v-1.873h-3.81v-1.561l4.037-5.91h1.498v5.904h1.156v1.567h-1.156V18.5H17.05zm0-3.44v-3.18l-2.14 3.18h2.14z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+
+    
+
+&lt;&#x2F;a&gt;
+中文输入法&lt;&#x2F;h4&gt;
+&lt;p&gt;我一开始用的 &lt;a href=&quot;https:&#x2F;&#x2F;pinyin.sogou.com&#x2F;linux&#x2F;?r=pinyin&quot;&gt;搜狗 linux 版&lt;&#x2F;a&gt;，因为系统太简洁了，没有包安装器，只能使用 &lt;code&gt;dpkg&lt;&#x2F;code&gt; 命令安装。&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#ffffff;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#323232;&quot;&gt;sudo dpkg -i sogoupinyin_2.3.2.07_amd64.deb
+
+&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#969896;&quot;&gt;# 补齐依赖
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt;sudo apt --fix-broken install
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;装好后出了点问题，搜狗始终打印的是繁体（候选框是简体，打出来的字确是繁体的），只好换成 &lt;code&gt;google-pinyin&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;因为上面的步骤已经安装好了 &lt;code&gt;fcitx&lt;&#x2F;code&gt; 框架。所以可以直接执行 &lt;code&gt;sudo apt install fcitx-googlepinyin&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;she-zhi-zhong-wen-yu-yan&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#she-zhi-zhong-wen-yu-yan&quot; aria-label=&quot;Anchor link for: she-zhi-zhong-wen-yu-yan&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm9.989 7.53l1.726-.209c.055.44.203.777.445 1.01.24.232.533.349.876.349.368 0 .678-.14.93-.42.251-.279.377-.655.377-1.13 0-.448-.12-.803-.362-1.066a1.153 1.153 0 0 0-.882-.393c-.228 0-.501.044-.819.133l.197-1.453c.482.012.85-.092 1.105-.315.253-.222.38-.517.38-.885 0-.313-.093-.563-.279-.75-.186-.185-.434-.278-.743-.278a1.07 1.07 0 0 0-.78.317c-.216.212-.347.52-.394.927l-1.644-.28c.114-.562.287-1.012.517-1.348.231-.337.553-.601.965-.794a3.24 3.24 0 0 1 1.387-.289c.876 0 1.579.28 2.108.838.436.457.653.973.653 1.549 0 .817-.446 1.468-1.339 1.955.533.114.96.37 1.28.768.319.398.478.878.478 1.441 0 .817-.298 1.513-.895 2.088-.596.576-1.339.864-2.228.864-.842 0-1.54-.243-2.094-.727-.555-.485-.876-1.118-.965-1.901z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+
+    
+
+&lt;&#x2F;a&gt;
+设置中文语言&lt;&#x2F;h3&gt;
+&lt;p&gt;参考文章：&lt;a href=&quot;https:&#x2F;&#x2F;x.medemede.cn&#x2F;archives&#x2F;%E8%A7%A3%E5%86%B3linux%E4%B8%8Bpycharm%E6%97%A0%E6%B3%95%E8%BE%93%E5%85%A5%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98#comment-author&quot;&gt;解决Linux下pycharm无法输入中文的问题&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;如果没有中文，文件管理器里面显示的中文名字会是乱码，终端不能输入中文，idea 里无法用中文输入法。&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#ffffff;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#323232;&quot;&gt;# 安装本地语言管理 和 中文字体包
+sudo apt-get -y install locales xfonts-intl-chinese fonts-wqy-microhei
+
+# 安装语言环境 选择 en_US.utf8 和 zh_CN-UTF-8
+# 空格键选择 Tab 键跳出选择，左右方向键选择确定还是取消，回车
+sudo dpkg-reconfigure locales
+
+# 查看当前系统支持的所有语言
+λ locale -a
+C
+C.UTF-8
+en_US.utf8
+POSIX
+zh_CN.utf8
+
+# 设置默认语言
+sudo update-locale LC_ALL=&amp;quot;zh_CN.UTF-8&amp;quot;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;如果你没法输入中文，如果出现 &lt;code&gt;LC_ALL=c&lt;&#x2F;code&gt; 一般是有问题的，需要手动 &lt;code&gt;export&lt;&#x2F;code&gt; 变量。&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#ffffff;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#323232;&quot;&gt;λ locale
+LANG=zh_CN.UTF-8
+LANGUAGE=
+LC_CTYPE=&amp;quot;zh_CN.UTF-8&amp;quot;
+LC_NUMERIC=&amp;quot;zh_CN.UTF-8&amp;quot;
+LC_TIME=&amp;quot;zh_CN.UTF-8&amp;quot;
+LC_COLLATE=&amp;quot;zh_CN.UTF-8&amp;quot;
+LC_MONETARY=&amp;quot;zh_CN.UTF-8&amp;quot;
+LC_MESSAGES=&amp;quot;zh_CN.UTF-8&amp;quot;
+LC_PAPER=&amp;quot;zh_CN.UTF-8&amp;quot;
+LC_NAME=&amp;quot;zh_CN.UTF-8&amp;quot;
+LC_ADDRESS=&amp;quot;zh_CN.UTF-8&amp;quot;
+LC_TELEPHONE=&amp;quot;zh_CN.UTF-8&amp;quot;
+LC_MEASUREMENT=&amp;quot;zh_CN.UTF-8&amp;quot;
+LC_IDENTIFICATION=&amp;quot;zh_CN.UTF-8&amp;quot;
+LC_ALL=zh_CN.UTF-8
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;我看到一些其他方案解决 linux 下 idea 无法输入中文的问题，嗯，在这都不好使... 最后还是找到了上面参考文章说的一样，只要设置了好了中文语言环境就 ok 了。&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;del&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;0165d540e2c9&quot;&gt;修改 idea vm 参数 或者 切换启动 jdk&lt;&#x2F;a&gt;&lt;&#x2F;del&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;del&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.cnblogs.com&#x2F;lshao&#x2F;p&#x2F;10058961.html&quot;&gt;修改 idea.sh 的方式&lt;&#x2F;a&gt;&lt;&#x2F;del&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;zong-jie&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#zong-jie&quot; aria-label=&quot;Anchor link for: zong-jie&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+    
+
+&lt;&#x2F;a&gt;
+总结&lt;&#x2F;h2&gt;
+&lt;p&gt;当前远程桌面也只是一种暂时的解决方案，毕竟体验还是不够好&lt;&#x2F;p&gt;
+&lt;p&gt;微软 和 JetBrains 都还在对 wsl2 做优化，不过我看短期内够呛。。。&lt;&#x2F;p&gt;
+&lt;p&gt;最后贴张双屏的图，竖屏是 windows terminal，横屏是远程桌面&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;image&#x2F;2020&#x2F;08&#x2F;double-screen-work.png&quot; alt=&quot;double-screen-work.png&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="zh">
+		<title>配置 wsl 代理遇到的一些坑</title>
+		<published>2020-08-22T00:00:00+00:00</published>
+		<updated>2020-08-22T00:00:00+00:00</updated>
+		<link href="https://blog.yanshenxian.xyz/article/having-problem-with-wsl-proxy/" type="text/html"/>
+		<id>https://blog.yanshenxian.xyz/article/having-problem-with-wsl-proxy/</id>
+		<content type="html">&lt;p&gt;前段时间配置 WSL2 开发环境的时候遇到了一些网络问题，这里一起记录下。&lt;&#x2F;p&gt;
+&lt;span id=&quot;continue-reading&quot;&gt;&lt;&#x2F;span&gt;&lt;h2 id=&quot;dns-jie-xi-cuo-wu&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#dns-jie-xi-cuo-wu&quot; aria-label=&quot;Anchor link for: dns-jie-xi-cuo-wu&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+    
+
+&lt;&#x2F;a&gt;
+dns 解析错误&lt;&#x2F;h2&gt;
+&lt;p&gt;WSL 每次重启会自动生成 &lt;code&gt;&#x2F;etc&#x2F;resolv.conf&lt;&#x2F;code&gt; 里面是宿主机的局域网ip，依靠宿主机解析经常容易出问题。&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;防止自动生成配置文件 创建如下 `&#x2F;etc&#x2F;wsl.conf` 文件&lt;&#x2F;p&gt;  
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre style=&quot;background-color:#ffffff;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#323232;&quot;&gt;λ cat &#x2F;etc&#x2F;wsl.conf
+[network]
+generateResolvConf = false
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;&lt;p&gt;修改dns解析服务器地址为 `8.8.8.8`&lt;&#x2F;p&gt;  
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre style=&quot;background-color:#ffffff;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#323232;&quot;&gt;λ cat &#x2F;etc&#x2F;resolv.conf
+nameserver 8.8.8.8
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;ping-ming-ling-wu-fa-shi-yong&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#ping-ming-ling-wu-fa-shi-yong&quot; aria-label=&quot;Anchor link for: ping-ming-ling-wu-fa-shi-yong&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+    
+
+&lt;&#x2F;a&gt;
+ping 命令无法使用&lt;&#x2F;h2&gt;
+&lt;p&gt;出现 &lt;code&gt;ping: icmp open socket: Operation not permitted&lt;&#x2F;code&gt; 的错误&lt;&#x2F;p&gt;
+&lt;p&gt;需要修改用户权限 &lt;code&gt;sudo chmod u+s &#x2F;bin&#x2F;ping&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;guan-jian-de-dai-li-pei-zhi&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#guan-jian-de-dai-li-pei-zhi&quot; aria-label=&quot;Anchor link for: guan-jian-de-dai-li-pei-zhi&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+    
+
+&lt;&#x2F;a&gt;
+关键的代理配置&lt;&#x2F;h2&gt;
+&lt;p&gt;为了方便，我整了两个脚本 和 alias 方便操作&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;宿主机的ip不是固定的&lt;&#x2F;li&gt;
+&lt;li&gt;宿主机的代理软件需要开启局域网连接&lt;&#x2F;li&gt;
+&lt;li&gt;http 和 socks 方式都需要开启，并且单独配置，&lt;code&gt;wget&lt;&#x2F;code&gt; 目前还不支持 &lt;code&gt;socks&lt;&#x2F;code&gt; 方式代理&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre style=&quot;background-color:#ffffff;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#323232;&quot;&gt;alias openproxy=&amp;quot;source ~&#x2F;.command&#x2F;openproxy.sh&amp;quot;
+alias closeproxy=&amp;quot;source ~&#x2F;.command&#x2F;closeproxy.sh&amp;quot;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;pre style=&quot;background-color:#ffffff;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#323232;&quot;&gt;# 以下是 openproxy.sh 的内容
+
+# 获取宿主机ip
+export WINDOWS_IP=$(ip route | grep default | awk &amp;#39;{print $3}&amp;#39;);
+# 设置 http 代理
+export {http_proxy,https_proxy,HTTP_PROXY,HTTPS_PROXY}=http:&#x2F;&#x2F;$WINDOWS_IP:10809;
+# 设置 socks 代理
+export {all_proxy,ALL_PROXY}=socks5:&#x2F;&#x2F;$WINDOWS_IP:10808;
+
+echo $http_proxy
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;pre style=&quot;background-color:#ffffff;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#323232;&quot;&gt;# 以下是 closeproxy.sh 的内容
+
+unset all_proxy http_proxy https_proxy ALL_PROXY HTTP_PROXY HTTPS_PROXY
+
+echo &amp;quot;ok!&amp;quot;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;sudo-hao-xiang-mei-you-zou-dai-li&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#sudo-hao-xiang-mei-you-zou-dai-li&quot; aria-label=&quot;Anchor link for: sudo-hao-xiang-mei-you-zou-dai-li&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+    
+
+&lt;&#x2F;a&gt;
+sudo 好像没有走代理&lt;&#x2F;h2&gt;
+&lt;p&gt;可以用 &lt;code&gt;curl cip.cc&lt;&#x2F;code&gt; 和 &lt;code&gt;sudo curl cip.cc&lt;&#x2F;code&gt; 来确认是否输出你期望的代理地址。&lt;&#x2F;p&gt;
+&lt;p&gt;修改 &lt;code&gt;&#x2F;etc&#x2F;sudoers&#x2F;&lt;&#x2F;code&gt; 文件，加入一行&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;Defaults env_keep += &amp;quot;http_proxy https_proxy all_proxy HTTP_PROXY HTTPS_PROXY ALL_PROXY&amp;quot;&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;ps: 此文件权限是 &lt;code&gt;440&lt;&#x2F;code&gt;，需要先加个写入权限 &lt;code&gt;sudo chmod 640 &#x2F;etc&#x2F;sudoers&lt;&#x2F;code&gt;，修改完记得把权限改回来。&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="zh">
+		<title>为 gitalk 代理 github api 请求</title>
+		<published>2020-08-14T00:00:00+00:00</published>
+		<updated>2020-08-14T00:00:00+00:00</updated>
+		<link href="https://blog.yanshenxian.xyz/article/gitalk-proxy-github-api-request/" type="text/html"/>
+		<id>https://blog.yanshenxian.xyz/article/gitalk-proxy-github-api-request/</id>
+		<content type="html">&lt;deprecated-exclude&gt;
+&lt;p&gt;由于 &lt;code&gt;gitalk&lt;&#x2F;code&gt; 使用 &lt;code&gt;oauth app&lt;&#x2F;code&gt; 来实现评论功能，其权限粒度过大，&lt;strong&gt;授权 &lt;code&gt;Token&lt;&#x2F;code&gt; 具备用户所有的公共仓库的读写权限&lt;&#x2F;strong&gt;，如果不小心泄露或者有人作恶，可能造成严重危害。&lt;&#x2F;p&gt;
+&lt;p&gt;我看网上有人说搭建博客使用一个单独的账号来创建评论 &lt;code&gt;issues&lt;&#x2F;code&gt; 仓库以避免泄露危害，这种说法是错误的，&lt;code&gt;Token&lt;&#x2F;code&gt; 泄露带来的危害是对评论用户来讲的，并不是博客主。&lt;&#x2F;p&gt;
+&lt;p&gt;要解决这个问题，暂时有两个方法&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;评论用户授权一个对自己无危害的账号来评论，另外可以在 &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;settings&#x2F;applications&quot;&gt;settings&#x2F;applications&lt;&#x2F;a&gt; 里面取消自己大号原来的授权。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;让网站废弃 &lt;code&gt;gitalk&lt;&#x2F;code&gt; 评论系统，可以用 &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;utterance&#x2F;utterances&quot;&gt;utterances&lt;&#x2F;a&gt; 替代，这是一个 &lt;code&gt;github app&lt;&#x2F;code&gt;，可以做到细粒度权限控制，只需要授权托管评论的仓库的 &lt;code&gt;issues&lt;&#x2F;code&gt; 相关权限即可。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;deprecated-exclude&gt;
+&lt;span id=&quot;continue-reading&quot;&gt;&lt;&#x2F;span&gt;&lt;deprecated-exclude&gt;
+&lt;p&gt;一个博主完全可以通过恶意脚本或者本文所说的反代功能来收集评论用户的 &lt;code&gt;Token&lt;&#x2F;code&gt;。&lt;&#x2F;p&gt;
+&lt;p&gt;关于此问题的参考链接如下：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.v2ex.com&#x2F;t&#x2F;535608&quot;&gt;建议大家弃用 gitalk 和 gitment 等权限过高的 github OAuth App&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;docs.github.com&#x2F;en&#x2F;developers&#x2F;apps&#x2F;differences-between-github-apps-and-oauth-apps&quot;&gt;github apps 和 oauth apps 两者的区别&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;deprecated-exclude&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;博客当前使用了 &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;gitalk&#x2F;gitalk&quot;&gt;gitalk&lt;&#x2F;a&gt; 来评论，但是由于国内网络问题，访问 &lt;code&gt;api.github.com&lt;&#x2F;code&gt; 经常被墙，所以考虑加一层代理小优化一下。&lt;&#x2F;p&gt;
+&lt;p&gt;gitalk 原生并不支持 api 代理，google 搜索也没有发现现成的方案，只能自己瞎鼓捣了。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;xiu-gai-gitalk-yuan-ma&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#xiu-gai-gitalk-yuan-ma&quot; aria-label=&quot;Anchor link for: xiu-gai-gitalk-yuan-ma&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+    
+
+&lt;&#x2F;a&gt;
+修改 gitalk 源码&lt;&#x2F;h2&gt;
+&lt;p&gt;改动涉及 &lt;code&gt;src&#x2F;gitalk.jsx&lt;&#x2F;code&gt;、&lt;code&gt;src&#x2F;util.js&lt;&#x2F;code&gt;、&lt;code&gt;typings&#x2F;index.d.ts&lt;&#x2F;code&gt; 这三个文件，已提交 &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;gitalk&#x2F;gitalk&#x2F;pull&#x2F;401&quot;&gt;相关 PR&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;使用 &lt;code&gt;npm run build&lt;&#x2F;code&gt; 构建 js 文件，构建结果位于 &lt;code&gt;dist&#x2F;gitalk.min.js&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;最后配置你自己的代理地址就行了&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#ffffff;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;font-weight:bold;color:#a71d5d;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt;gitalk &lt;&#x2F;span&gt;&lt;span style=&quot;font-weight:bold;color:#a71d5d;&quot;&gt;= new &lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt;Gitalk({
+    &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#969896;&quot;&gt;&#x2F;&#x2F; 其他配置省略
+    &lt;&#x2F;span&gt;&lt;span style=&quot;font-weight:bold;color:#a71d5d;&quot;&gt;...
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt;proxyGithubApi: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#183691;&quot;&gt;&amp;quot;https:&#x2F;&#x2F;proxy-github-api.{{USERNAME}}.workers.dev&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt;,
+    &lt;&#x2F;span&gt;&lt;span style=&quot;font-weight:bold;color:#a71d5d;&quot;&gt;...
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt;})
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;da-jian-dai-li-fu-wu-qi&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#da-jian-dai-li-fu-wu-qi&quot; aria-label=&quot;Anchor link for: da-jian-dai-li-fu-wu-qi&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+    
+
+&lt;&#x2F;a&gt;
+搭建代理服务器&lt;&#x2F;h2&gt;
+&lt;p&gt;如果是在自己的服务器上用搭建反代服务器，有一些地方需要注意&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;header&lt;&#x2F;code&gt; 中的 &lt;code&gt;authorization&lt;&#x2F;code&gt; 必须传递下去&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;gitalk&lt;&#x2F;code&gt; 评论请求用到了原始响应里的接口地址，必须进行反代域名替换&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;本着白嫖的心思，直接用 &lt;a href=&quot;https:&#x2F;&#x2F;workers.cloudflare.com&#x2F;&quot;&gt;cloudflare worker&lt;&#x2F;a&gt;，每天支持10万次免费请求。&lt;&#x2F;p&gt;
+&lt;p&gt;完整代码如下所示&lt;&#x2F;p&gt;
+&lt;div class=&quot;embed-wrapper&quot;&gt;
+    &lt;div data-gist-id=&quot;yanshenxian&amp;#x2F;c720ecdafe160653f80a6fbd116916c5&quot;&gt;&lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;上面的脚本参考了 &lt;a href=&quot;https:&#x2F;&#x2F;blog.ichr.me&#x2F;post&#x2F;use-disqus-conveniently&#x2F;&quot;&gt;在特殊地区科学使用 Disqus 评论系统&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="zh">
+		<title>去除某些博客阅读全文需要关注公众号的限制</title>
+		<published>2020-08-12T00:00:00+00:00</published>
+		<updated>2020-08-12T00:00:00+00:00</updated>
+		<link href="https://blog.yanshenxian.xyz/article/anti-open-write-read-more/" type="text/html"/>
+		<id>https://blog.yanshenxian.xyz/article/anti-open-write-read-more/</id>
+		<content type="html">&lt;p&gt;最近好像突然流行起来了在博客里面设置阅读全文需要关注公众号获取验证码的垃圾操作，甚至一些托管在 github pages 上的静态博客也搞了，实在是一种脱裤子放屁的行为。&lt;&#x2F;p&gt;
+&lt;span id=&quot;continue-reading&quot;&gt;&lt;&#x2F;span&gt;
+&lt;p&gt;需要获取验证码的案例如下图&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;image&#x2F;2020&#x2F;08&#x2F;open-write-read-more.bmp&quot; alt=&quot;open-write-read-more&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;可以看到这个功能其实是由 &lt;del&gt;openwrite.cn&lt;&#x2F;del&gt; 提供验证功能&lt;&#x2F;p&gt;
+&lt;p&gt;输入验证码之后会调用接口 &lt;code&gt;https:&#x2F;&#x2F;my.openwrite.cn&#x2F;code&#x2F;check?blogId=xxx&amp;amp;code=xxx&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;接口响应也很简单 &lt;code&gt;{&amp;quot;result&amp;quot;:true}&lt;&#x2F;code&gt; 说明全文内容就在本地，只是被隐藏起来了。&lt;&#x2F;p&gt;
+&lt;p&gt;所以我们可以通过如下几种方法来去除限制。&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;[下策] 使用匿名的验证码生成接口 &lt;code&gt;https:&#x2F;&#x2F;my.openwrite.cn&#x2F;code&#x2F;generate?blogId=xxx&lt;&#x2F;code&gt;，&lt;code&gt;blogId&lt;&#x2F;code&gt; 参数可以在网页源代码中找到。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;[中策] 使用 &lt;a href=&quot;https:&#x2F;&#x2F;www.tampermonkey.net&#x2F;&quot;&gt;Tampermonkey&lt;&#x2F;a&gt; 的 &lt;a href=&quot;https:&#x2F;&#x2F;greasyfork.org&#x2F;zh-TW&#x2F;scripts&#x2F;392670-%E5%8E%BB%E9%99%A4%E5%8D%9A%E5%AE%A2%E5%AF%BC%E6%B5%81%E5%85%AC%E4%BC%97%E5%8F%B7&#x2F;code?version=824775&quot;&gt;去除博客导流公众号脚本
+&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;[上策] 直接阅读其他博客，还可以用 &lt;a href=&quot;https:&#x2F;&#x2F;chrome.google.com&#x2F;webstore&#x2F;detail&#x2F;ublock-origin&#x2F;cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=zh-CN&quot;&gt;uBlock Origin&lt;&#x2F;a&gt; 或者 &lt;a href=&quot;https:&#x2F;&#x2F;chrome.google.com&#x2F;webstore&#x2F;detail&#x2F;content-farm-terminator&#x2F;lcghoajegeldpfkfaejegfobkapnemjl?hl=zh-CN&quot;&gt;终结内容农场&lt;&#x2F;a&gt; 扩展将网站加入黑名单。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+</content>
+	</entry>
+	<entry xml:lang="zh">
+		<title>在 github上发布你的 zola 博客</title>
+		<published>2020-08-08T00:00:00+00:00</published>
+		<updated>2020-08-08T00:00:00+00:00</updated>
+		<link href="https://blog.yanshenxian.xyz/article/build-and-deploy-zola-on-github-pages/" type="text/html"/>
+		<id>https://blog.yanshenxian.xyz/article/build-and-deploy-zola-on-github-pages/</id>
+		<content type="html">&lt;p&gt;本地开发环境 &lt;code&gt;WSL2&lt;&#x2F;code&gt;，选取的博客框架 &lt;code&gt;Zola&lt;&#x2F;code&gt;，托管服务 &lt;code&gt;github pages&lt;&#x2F;code&gt;，自动构建 &lt;code&gt;github actions&lt;&#x2F;code&gt;，另外自定义域名还需要一个 DNS 服务商，这里我用的是 &lt;code&gt;cloudflare&lt;&#x2F;code&gt;，顺便白嫖 CDN。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;Rust&lt;&#x2F;code&gt; 是个很酷的语言。&lt;&#x2F;p&gt;
+&lt;span id=&quot;continue-reading&quot;&gt;&lt;&#x2F;span&gt;&lt;h2 id=&quot;pei-zhi-wsl2-kai-fa-huan-jing&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#pei-zhi-wsl2-kai-fa-huan-jing&quot; aria-label=&quot;Anchor link for: pei-zhi-wsl2-kai-fa-huan-jing&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+    
+
+&lt;&#x2F;a&gt;
+配置 Wsl2 开发环境&lt;&#x2F;h2&gt;
+&lt;p&gt;因为刚从 Mac OS 切到 Win10 开发环境，也是第一次尝试 &lt;code&gt;WSL2&lt;&#x2F;code&gt;。虽然这没有 Mac OS 或者 Linux 好用，但是也极大的增强了 win10 开发的体验。&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;首先根据 &lt;a href=&quot;https:&#x2F;&#x2F;docs.microsoft.com&#x2F;zh-cn&#x2F;windows&#x2F;wsl&#x2F;install-win10&quot;&gt;官网文档&lt;&#x2F;a&gt; 开启 &lt;code&gt;WSL2&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;运行 &lt;code&gt;WSL&lt;&#x2F;code&gt; 命令启动环境，这个时候你就可以看到一个简洁的 linux 终端了，&lt;strong&gt;wsl2 的文件和端口是和宿主机共享的。&lt;&#x2F;strong&gt; 比如你 c 盘上的文件会映射到 &lt;code&gt;&#x2F;mnt&#x2F;c&#x2F;&lt;&#x2F;code&gt; 这个路径，你在 WSL 里面启动了一个 web 服务监听端口 8080，你就可以在宿主机上直接使用 127.0.0.1:8080 访问它。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;然后像在 Linux 上一样配置开发环境，修改国内镜像、安装 git、zsh、oh-my-zsh等等操作，你可能还会在宿主机上安装 VS Code + &lt;code&gt;Remote - WSL&lt;&#x2F;code&gt; 插件，这个用来管理 WSL 里的项目很方便，它的终端默认就是 WSL 的终端。另外也可以换个漂亮点的终端替换掉 cmd 或者 powershell，&lt;code&gt;windows Terminal&lt;&#x2F;code&gt; 就是个不错的选择。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;花了一堆时间终于搞得有模有样了，你可能还会碰到一些问题，它终究不是一个完整的 linux 。。。比如 &lt;code&gt;ping&lt;&#x2F;code&gt; 命令无法使用，搜索发现需要 &lt;code&gt;sudo chmod u+s&lt;&#x2F;code&gt; 下，再比如域名解析会莫名其妙的出现问题，解决方法是修改 &lt;code&gt;resolv.conf&lt;&#x2F;code&gt; 文件 (必须先在 &lt;code&gt;wsl.conf&lt;&#x2F;code&gt; 里设置 generateResolvConf 参数否则重启无效)&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;这里我总结了另外一篇文章 &lt;a href=&quot;https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;article&#x2F;having-problem-with-wsl-proxy&#x2F;&quot;&gt;wsl 配置代理遇到的一些坑&lt;&#x2F;a&gt;。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;wsl2-zhong-an-zhuang-zola&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#wsl2-zhong-an-zhuang-zola&quot; aria-label=&quot;Anchor link for: wsl2-zhong-an-zhuang-zola&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+    
+
+&lt;&#x2F;a&gt;
+Wsl2 中安装 Zola&lt;&#x2F;h2&gt;
+&lt;p&gt;因为在安装的过程中，我遇到了几个坑，所以这里单独提出来说下。&lt;&#x2F;p&gt;
+&lt;p&gt;首先看下 &lt;a href=&quot;https:&#x2F;&#x2F;www.getzola.org&#x2F;documentation&#x2F;getting-started&#x2F;installation&#x2F;&quot;&gt;Zola 文档&lt;&#x2F;a&gt;，官网没有提供 Ubuntu&#x2F;Debian 系的源，但是提供了一个 &lt;a href=&quot;https:&#x2F;&#x2F;snapcraft.io&#x2F;install&#x2F;zola&#x2F;ubuntu&quot;&gt;Snapcraft&lt;&#x2F;a&gt; 的方式安装。&lt;&#x2F;p&gt;
+&lt;p&gt;在 &lt;code&gt;wsl2&lt;&#x2F;code&gt; 里用 snap 就会出现一些奇怪的问题，你 &lt;code&gt;sudo apt install snapd&lt;&#x2F;code&gt; 之后并没法直接使用 snap，当你尝试 &lt;code&gt;sudo snap install zola --edge&lt;&#x2F;code&gt; 你会得到一个错误信息&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;error: cannot communicate with server: Post http:&#x2F;&#x2F;localhost&#x2F;v2&#x2F;snaps&#x2F;zola: dial unix &#x2F;run&#x2F;snapd.socket: connect: no such file or directory...&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;因为 wsl 终究不是一个完整的 linux 系统，所有有些命令比如 systemctl 没法使用。错误解决可以查看这个 &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;microsoft&#x2F;WSL&#x2F;issues&#x2F;5126#issuecomment-653715201&quot;&gt;issue&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;好了 就算你尝试用上面 issue 的方法暂时解决了 snap 安装的命令，当你接下来准备在本地构建运行的时候又会出现 &lt;code&gt;No port available&lt;&#x2F;code&gt; 的错误。Snap 安装的 Zola 不知怎的没法监听端口。&lt;&#x2F;p&gt;
+&lt;p&gt;所以我放弃了 Snap 的方式，但是我又不想源码编译安装。幸好 Zola 的 github 里提供了 linux 版本的 Release 包。就直接拿过来用吧。。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;ben-di-gou-jian-zola-xiang-mu&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#ben-di-gou-jian-zola-xiang-mu&quot; aria-label=&quot;Anchor link for: ben-di-gou-jian-zola-xiang-mu&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+    
+
+&lt;&#x2F;a&gt;
+本地构建 Zola 项目&lt;&#x2F;h2&gt;
+&lt;p&gt;为了方便开发，我们把项目放在 wsl 子系统里面，之后在宿主机上用 VSCode 进行开发。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;chu-shi-hua&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#chu-shi-hua&quot; aria-label=&quot;Anchor link for: chu-shi-hua&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm9.989 7.53l1.726-.209c.055.44.203.777.445 1.01.24.232.533.349.876.349.368 0 .678-.14.93-.42.251-.279.377-.655.377-1.13 0-.448-.12-.803-.362-1.066a1.153 1.153 0 0 0-.882-.393c-.228 0-.501.044-.819.133l.197-1.453c.482.012.85-.092 1.105-.315.253-.222.38-.517.38-.885 0-.313-.093-.563-.279-.75-.186-.185-.434-.278-.743-.278a1.07 1.07 0 0 0-.78.317c-.216.212-.347.52-.394.927l-1.644-.28c.114-.562.287-1.012.517-1.348.231-.337.553-.601.965-.794a3.24 3.24 0 0 1 1.387-.289c.876 0 1.579.28 2.108.838.436.457.653.973.653 1.549 0 .817-.446 1.468-1.339 1.955.533.114.96.37 1.28.768.319.398.478.878.478 1.441 0 .817-.298 1.513-.895 2.088-.596.576-1.339.864-2.228.864-.842 0-1.54-.243-2.094-.727-.555-.485-.876-1.118-.965-1.901z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+
+    
+
+&lt;&#x2F;a&gt;
+初始化&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#ffffff;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#323232;&quot;&gt;λ zola init my-blog
+Welcome to Zola!
+Please answer a few questions to get started quickly.
+Any choices made can be changed by modifying the `config.toml` file later.
+&lt;&#x2F;span&gt;&lt;span style=&quot;font-weight:bold;color:#a71d5d;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt; What is the URL of your site&lt;&#x2F;span&gt;&lt;span style=&quot;font-weight:bold;color:#a71d5d;&quot;&gt;?&lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt; (https:&#x2F;&#x2F;example.com)&lt;&#x2F;span&gt;&lt;span style=&quot;color:#62a35c;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt; https:&#x2F;&#x2F;blog.yanshenxian.xyz
+&lt;&#x2F;span&gt;&lt;span style=&quot;font-weight:bold;color:#a71d5d;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt; Do you want to enable Sass compilation&lt;&#x2F;span&gt;&lt;span style=&quot;font-weight:bold;color:#a71d5d;&quot;&gt;? [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt;Y&#x2F;n&lt;&#x2F;span&gt;&lt;span style=&quot;font-weight:bold;color:#a71d5d;&quot;&gt;]&lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt;: Y
+&lt;&#x2F;span&gt;&lt;span style=&quot;font-weight:bold;color:#a71d5d;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt; Do you want to enable syntax highlighting&lt;&#x2F;span&gt;&lt;span style=&quot;font-weight:bold;color:#a71d5d;&quot;&gt;? [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt;y&#x2F;N&lt;&#x2F;span&gt;&lt;span style=&quot;font-weight:bold;color:#a71d5d;&quot;&gt;]&lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt;: Y
+&lt;&#x2F;span&gt;&lt;span style=&quot;font-weight:bold;color:#a71d5d;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt; Do you want to build a search index of the content&lt;&#x2F;span&gt;&lt;span style=&quot;font-weight:bold;color:#a71d5d;&quot;&gt;? [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt;y&#x2F;N&lt;&#x2F;span&gt;&lt;span style=&quot;font-weight:bold;color:#a71d5d;&quot;&gt;]&lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt;: N
+
+Done! Your site was created in &lt;&#x2F;span&gt;&lt;span style=&quot;color:#183691;&quot;&gt;&amp;quot;&#x2F;home&#x2F;user&#x2F;my-blog&amp;quot;
+
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt;Get started by moving into the directory and using the built-in server: `zola serve`
+Visit https:&#x2F;&#x2F;www.getzola.org for the full documentation.
+
+λ cd my-blog &lt;&#x2F;span&gt;&lt;span style=&quot;font-weight:bold;color:#a71d5d;&quot;&gt;&amp;amp;&amp;amp; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt;ls
+config.toml  content  sass  static  templates  themes
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;基础的架子已经生成好了，为了了解 &lt;code&gt;config.toml&lt;&#x2F;code&gt; 配置文件，配置相关参考 &lt;a href=&quot;https:&#x2F;&#x2F;www.getzola.org&#x2F;documentation&#x2F;getting-started&#x2F;configuration&#x2F;&quot;&gt;Zola 文档&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;pei-zhi-zhu-ti&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#pei-zhi-zhu-ti&quot; aria-label=&quot;Anchor link for: pei-zhi-zhu-ti&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm9.989 7.53l1.726-.209c.055.44.203.777.445 1.01.24.232.533.349.876.349.368 0 .678-.14.93-.42.251-.279.377-.655.377-1.13 0-.448-.12-.803-.362-1.066a1.153 1.153 0 0 0-.882-.393c-.228 0-.501.044-.819.133l.197-1.453c.482.012.85-.092 1.105-.315.253-.222.38-.517.38-.885 0-.313-.093-.563-.279-.75-.186-.185-.434-.278-.743-.278a1.07 1.07 0 0 0-.78.317c-.216.212-.347.52-.394.927l-1.644-.28c.114-.562.287-1.012.517-1.348.231-.337.553-.601.965-.794a3.24 3.24 0 0 1 1.387-.289c.876 0 1.579.28 2.108.838.436.457.653.973.653 1.549 0 .817-.446 1.468-1.339 1.955.533.114.96.37 1.28.768.319.398.478.878.478 1.441 0 .817-.298 1.513-.895 2.088-.596.576-1.339.864-2.228.864-.842 0-1.54-.243-2.094-.727-.555-.485-.876-1.118-.965-1.901z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+
+    
+
+&lt;&#x2F;a&gt;
+配置主题&lt;&#x2F;h3&gt;
+&lt;p&gt;Zola 提供的 &lt;a href=&quot;https:&#x2F;&#x2F;www.getzola.org&#x2F;themes&#x2F;&quot;&gt;主题列表&lt;&#x2F;a&gt; 有限，但是对我来说够用了。&lt;&#x2F;p&gt;
+&lt;p&gt;这里我选的是 &lt;a href=&quot;https:&#x2F;&#x2F;www.getzola.org&#x2F;themes&#x2F;even&#x2F;&quot;&gt;even&lt;&#x2F;a&gt;，基于我自己的喜好，我小小的改动了一些。可以参考 &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;yanshenxian&#x2F;yanshenxian.github.io&#x2F;blob&#x2F;master&#x2F;README.md&quot;&gt;README.md&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;你可以从我的 github 博客仓库 拷贝我的配置和修改后的主题，&lt;code&gt;even&lt;&#x2F;code&gt; 主题在 &lt;code&gt;themes&#x2F;even&#x2F;content&lt;&#x2F;code&gt; 里自带了一些示例文章，可以参考下文章编写规则（简单说就是一些 metadata 头部 + markdown 内容）&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;ben-di-yun-xing&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#ben-di-yun-xing&quot; aria-label=&quot;Anchor link for: ben-di-yun-xing&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm9.989 7.53l1.726-.209c.055.44.203.777.445 1.01.24.232.533.349.876.349.368 0 .678-.14.93-.42.251-.279.377-.655.377-1.13 0-.448-.12-.803-.362-1.066a1.153 1.153 0 0 0-.882-.393c-.228 0-.501.044-.819.133l.197-1.453c.482.012.85-.092 1.105-.315.253-.222.38-.517.38-.885 0-.313-.093-.563-.279-.75-.186-.185-.434-.278-.743-.278a1.07 1.07 0 0 0-.78.317c-.216.212-.347.52-.394.927l-1.644-.28c.114-.562.287-1.012.517-1.348.231-.337.553-.601.965-.794a3.24 3.24 0 0 1 1.387-.289c.876 0 1.579.28 2.108.838.436.457.653.973.653 1.549 0 .817-.446 1.468-1.339 1.955.533.114.96.37 1.28.768.319.398.478.878.478 1.441 0 .817-.298 1.513-.895 2.088-.596.576-1.339.864-2.228.864-.842 0-1.54-.243-2.094-.727-.555-.485-.876-1.118-.965-1.901z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+
+    
+
+&lt;&#x2F;a&gt;
+本地运行&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#ffffff;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#323232;&quot;&gt;λ zola serve
+Building site...
+-&lt;&#x2F;span&gt;&lt;span style=&quot;font-weight:bold;color:#a71d5d;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#323232;&quot;&gt; Creating 3 pages (1 orphan), 0 sections, and processing 0 images
+Done in 54ms.
+
+Listening for changes in &#x2F;home&#x2F;user&#x2F;my-blog&#x2F;{content, config.toml, static, templates, themes, sass}
+Press Ctrl+C to stop
+
+Web server is available at http:&#x2F;&#x2F;127.0.0.1:1025
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;为了避免没有文章的尴尬，可以先 &lt;code&gt;cp -r themes&#x2F;even&#x2F;content content&#x2F;&lt;&#x2F;code&gt; 构建部署下主题自带的测试文章&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我测试过不开启索引的情况下， Zola 生成 1万 篇文章耗时不超过 10s，文章都是抓取的真实博客。所以它的性能还是非常不错的。
+但是开启索引就有点问题了。程序莫名卡住。原因待查！&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;然后用宿主机访问 http:&#x2F;&#x2F;127.0.0.1:1025 就能看到搭建好的博客网站了&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;chuang-jian-fa-bu&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#chuang-jian-fa-bu&quot; aria-label=&quot;Anchor link for: chuang-jian-fa-bu&quot;&gt;
+    
+    
+
+    &lt;svg viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;&lt;path d=&quot;M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z&quot;&#x2F;&gt;&lt;&#x2F;svg&gt; 
+
+    
+
+&lt;&#x2F;a&gt;
+创建 &amp;amp;&amp;amp; 发布&lt;&#x2F;h2&gt;
+&lt;p&gt;你可能需要先看下相关的文档&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;docs.github.com&#x2F;cn&#x2F;github&#x2F;working-with-github-pages&#x2F;about-github-pages&quot;&gt;Github Page 文档&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;shalzz&#x2F;zola-deploy-action&#x2F;&quot;&gt;Zola Deploy 文档&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;创建一个命名为 &lt;code&gt;&amp;lt;user&amp;gt;.github.io&lt;&#x2F;code&gt; 的仓库，例如 &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;yanshenxian&#x2F;yanshenxian.github.io&quot;&gt;yanshenxian.github.io&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;创建 &lt;code&gt;github actions&lt;&#x2F;code&gt; 脚本，具体见 &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;yanshenxian&#x2F;yanshenxian.github.io&#x2F;blob&#x2F;master&#x2F;.github&#x2F;workflows&#x2F;ci.yml&quot;&gt;ci.yml&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;申请一个 &lt;code&gt;access token&lt;&#x2F;code&gt;，申请方法见上面的 &lt;code&gt;Zola Deploy 文档&lt;&#x2F;code&gt;，并在仓库的 &lt;code&gt;Settings-&amp;gt;Secrets&lt;&#x2F;code&gt; 里设置环境变量，变量名称和 ci 脚本中的变量名称保持一致 &lt;code&gt;${{ secrets.TOKEN }}&lt;&#x2F;code&gt; &lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;创建 &lt;code&gt;static&#x2F;CNAME&lt;&#x2F;code&gt; 文件，里面写上你要自定义的域名，具体见 &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;yanshenxian&#x2F;yanshenxian.github.io&#x2F;blob&#x2F;master&#x2F;static&#x2F;CNAME&quot;&gt;CNAME&lt;&#x2F;a&gt;，ci 构建的时候会自动把 &lt;code&gt;static&lt;&#x2F;code&gt; 里的文件拷贝到 &lt;code&gt;gh-pages&lt;&#x2F;code&gt; 分支的根目录，如果没有 &lt;code&gt;CNAME&lt;&#x2F;code&gt; 这个文件，每次脚本构建之后会清除之前设置的域名重定向。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;将本地项目 push 到仓库的 &lt;code&gt;master&lt;&#x2F;code&gt; 分支，如果没问题，可以在 &lt;code&gt;commit id&lt;&#x2F;code&gt; 旁边看见构建的标志，脚本会自动构建出一个 &lt;code&gt;gh-pages&lt;&#x2F;code&gt; 分支，里面生成了所有的静态文件&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;在仓库的 &lt;code&gt;Settings-&amp;gt;Github pages&lt;&#x2F;code&gt; 确认相关配置，&lt;strong&gt;page build 的 source branch 是 gh-pages&lt;&#x2F;strong&gt;
+&lt;img src=&quot;&#x2F;image&#x2F;2020&#x2F;08&#x2F;github-pages-settings.bmp&quot; alt=&quot;github-pages-settings&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;在 &lt;a href=&quot;https:&#x2F;&#x2F;dash.cloudflare.com&#x2F;&quot;&gt;Cloudflare&lt;&#x2F;a&gt; 中设置 DNS CNAME 以及启用 cf 的 cdn proxy，比起 Github 经常被墙... cf 好点
+&lt;img src=&quot;&#x2F;image&#x2F;2020&#x2F;08&#x2F;github-pages-cname-setting.bmp&quot; alt=&quot;github-pages-cname-setting&quot; &#x2F;&gt;
+&lt;strong&gt;如果 github pages settings 中设置了强制 ssl，那么 cf 中 ssl 也必须设置为 Full，要不然会造成无限重定向。&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;现在你可以用你的自定义域名访问你的博客了，Enjoy~&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;由于我是搭建完之后再写这篇文章的，有些步骤可能没那么明确了，比如我因为有一些踩过的坑，所以调整了些步骤，有些组件也不是必要的，比如 &lt;code&gt;wsl2&lt;&#x2F;code&gt;、&lt;code&gt;cloudflare&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;但是总体操作应该可以顺下来。多看官方文档也会有很大的帮助。&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

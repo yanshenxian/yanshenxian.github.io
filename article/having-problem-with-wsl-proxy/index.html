@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>配置 wsl 代理遇到的一些坑</title>
+
+    
+    <link rel="alternate"
+        type="application/atom+xml"
+        title="RSS" href="https://blog.yanshenxian.xyz/atom.xml">
+    
+
+    
+    <link rel="stylesheet" href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;site.css">
+    
+    
+
+    
+    
+</head>
+
+<body>
+    <div class="container">
+        <div id="mobile-navbar" class="mobile-navbar">
+            <div class="mobile-header-logo">
+                <a href="/" class="logo">Blog</a>
+            </div>
+            <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+            <ul class="mobile-menu-list">
+                
+                <li class="mobile-menu-item">
+                    <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz">
+                        Home
+                    </a>
+                </li>
+                
+                <li class="mobile-menu-item">
+                    <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;categories">
+                        Categories
+                    </a>
+                </li>
+                
+                <li class="mobile-menu-item">
+                    <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;tags">
+                        Tags
+                    </a>
+                </li>
+                
+                <li class="mobile-menu-item">
+                    <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;about">
+                        About
+                    </a>
+                </li>
+                
+            </ul>
+        </nav>
+
+        <div class="wrapper-not-footer">
+            <header id="header">
+                <!-- <div class="logo"><a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz">Blog</a></div> -->
+                <a class="profile-icon" href="/">
+                    <img src="&#x2F;avatar.jpg" alt="profile picture">
+                </a>
+                <nav class="menu">
+                    <ul>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz">
+                                Home
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;categories">
+                                Categories
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;tags">
+                                Tags
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;about">
+                                About
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </nav>
+            </header>
+    
+            <main>
+                <div class="content" id="mobile-panel">
+                    
+
+<div class="post-toc" id="post-toc">
+    <p class="post-toc-title">目录</p>
+    <div class="post-toc-content always-active">
+        <nav id="TableOfContents">
+            <ol>
+                
+                <li>
+                    <a href="https://blog.yanshenxian.xyz/article/having-problem-with-wsl-proxy/#dns-jie-xi-cuo-wu" class="toc-link">dns 解析错误</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://blog.yanshenxian.xyz/article/having-problem-with-wsl-proxy/#ping-ming-ling-wu-fa-shi-yong" class="toc-link">ping 命令无法使用</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://blog.yanshenxian.xyz/article/having-problem-with-wsl-proxy/#guan-jian-de-dai-li-pei-zhi" class="toc-link">关键的代理配置</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://blog.yanshenxian.xyz/article/having-problem-with-wsl-proxy/#sudo-hao-xiang-mei-you-zou-dai-li" class="toc-link">sudo 好像没有走代理</a>
+                    
+                </li>
+                
+            </ol>
+        </nav>
+    </div>
+</div>
+
+
+<article class="post">
+    
+<header class="post__header">
+    <h1 class="post__title ">
+        <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;article&#x2F;having-problem-with-wsl-proxy&#x2F;"> 配置 wsl 代理遇到的一些坑 </a>
+    </h1>
+    <div class="post__meta">
+        <span class="post__time">2020-08-22</span>
+        
+    </div>
+</header>
+
+    <div class="post-content">
+        <p>前段时间配置 WSL2 开发环境的时候遇到了一些网络问题，这里一起记录下。</p>
+<span id="continue-reading"></span><h2 id="dns-jie-xi-cuo-wu"><a class="zola-anchor" href="#dns-jie-xi-cuo-wu" aria-label="Anchor link for: dns-jie-xi-cuo-wu">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z"/></svg> 
+
+    
+
+</a>
+dns 解析错误</h2>
+<p>WSL 每次重启会自动生成 <code>/etc/resolv.conf</code> 里面是宿主机的局域网ip，依靠宿主机解析经常容易出问题。</p>
+<ol>
+<li><p>防止自动生成配置文件 创建如下 `/etc/wsl.conf` 文件</p>  
+</li>
+</ol>
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">λ cat /etc/wsl.conf
+[network]
+generateResolvConf = false
+</span></code></pre>
+<ol start="2">
+<li><p>修改dns解析服务器地址为 `8.8.8.8`</p>  
+</li>
+</ol>
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">λ cat /etc/resolv.conf
+nameserver 8.8.8.8
+</span></code></pre><h2 id="ping-ming-ling-wu-fa-shi-yong"><a class="zola-anchor" href="#ping-ming-ling-wu-fa-shi-yong" aria-label="Anchor link for: ping-ming-ling-wu-fa-shi-yong">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z"/></svg> 
+
+    
+
+</a>
+ping 命令无法使用</h2>
+<p>出现 <code>ping: icmp open socket: Operation not permitted</code> 的错误</p>
+<p>需要修改用户权限 <code>sudo chmod u+s /bin/ping</code></p>
+<h2 id="guan-jian-de-dai-li-pei-zhi"><a class="zola-anchor" href="#guan-jian-de-dai-li-pei-zhi" aria-label="Anchor link for: guan-jian-de-dai-li-pei-zhi">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z"/></svg> 
+
+    
+
+</a>
+关键的代理配置</h2>
+<p>为了方便，我整了两个脚本 和 alias 方便操作</p>
+<ul>
+<li>宿主机的ip不是固定的</li>
+<li>宿主机的代理软件需要开启局域网连接</li>
+<li>http 和 socks 方式都需要开启，并且单独配置，<code>wget</code> 目前还不支持 <code>socks</code> 方式代理</li>
+</ul>
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">alias openproxy=&quot;source ~/.command/openproxy.sh&quot;
+alias closeproxy=&quot;source ~/.command/closeproxy.sh&quot;
+</span></code></pre><pre style="background-color:#ffffff;">
+<code><span style="color:#323232;"># 以下是 openproxy.sh 的内容
+
+# 获取宿主机ip
+export WINDOWS_IP=$(ip route | grep default | awk &#39;{print $3}&#39;);
+# 设置 http 代理
+export {http_proxy,https_proxy,HTTP_PROXY,HTTPS_PROXY}=http://$WINDOWS_IP:10809;
+# 设置 socks 代理
+export {all_proxy,ALL_PROXY}=socks5://$WINDOWS_IP:10808;
+
+echo $http_proxy
+</span></code></pre><pre style="background-color:#ffffff;">
+<code><span style="color:#323232;"># 以下是 closeproxy.sh 的内容
+
+unset all_proxy http_proxy https_proxy ALL_PROXY HTTP_PROXY HTTPS_PROXY
+
+echo &quot;ok!&quot;
+</span></code></pre><h2 id="sudo-hao-xiang-mei-you-zou-dai-li"><a class="zola-anchor" href="#sudo-hao-xiang-mei-you-zou-dai-li" aria-label="Anchor link for: sudo-hao-xiang-mei-you-zou-dai-li">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z"/></svg> 
+
+    
+
+</a>
+sudo 好像没有走代理</h2>
+<p>可以用 <code>curl cip.cc</code> 和 <code>sudo curl cip.cc</code> 来确认是否输出你期望的代理地址。</p>
+<p>修改 <code>/etc/sudoers/</code> 文件，加入一行</p>
+<p><code>Defaults env_keep += &quot;http_proxy https_proxy all_proxy HTTP_PROXY HTTPS_PROXY ALL_PROXY&quot;</code></p>
+<p>ps: 此文件权限是 <code>440</code>，需要先加个写入权限 <code>sudo chmod 640 /etc/sudoers</code>，修改完记得把权限改回来。</p>
+
+    </div>
+
+    
+    
+
+    
+
+    <div class="post-footer">
+        
+        
+        <div class="post-tags">
+            <span style="font-weight: bold; color:#183691;">标签: </span>
+            
+            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;tags&#x2F;wsl&#x2F;">#WSL</a>
+            
+        </div>
+        
+
+        
+        <div class="post-nav">
+            
+            <a class="previous" href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;article&#x2F;gitalk-proxy-github-api-request&#x2F;">‹ 为 gitalk 代理 github api 请求</a>
+            
+            
+            <a class="next" href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;article&#x2F;java-development-in-wsl2&#x2F;">在 wsl 上配置 java 开发环境 ›</a>
+            
+            
+            
+        </div>
+        
+
+        
+    </div>
+
+    
+    
+</article>
+
+
+                </div>
+                
+
+
+
+
+
+<script src="https://utteranc.es/client.js" repo="yanshenxian/yanshenxian.github.io" issue-term="title" theme="github-light" crossorigin="anonymous" async></script>
+
+
+
+            </main>
+        </div>
+
+        <footer>
+    <p>
+        © yanshenxian&#x27;s blog 2020 Powered by <a target="_blank"
+            href="https://getzola.org/">Zola</a>, Theme <a target="_blank"
+            href="https://www.getzola.org/themes/even/">even</a>.
+    </p>
+</footer>
+        <a class="back-to-top" id="scroll_to_top_id">
+    <div>
+        <span><img src="/back_top.png"/></span>
+    </div>
+    <div style="float: right;">
+        <span id="scrollpercent">0</span>%
+    </div>
+</a>
+    </div>
+
+
+</body>
+
+
+<script type="text/javascript" src="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;even.js"></script>
+<script type="text/javascript" src="/js/scroll.js"></script>
+
+<script src="/js/slideout.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gist-embed@1.0.4/dist/gist-embed.min.js"></script>
+
+
+
+
+</html>

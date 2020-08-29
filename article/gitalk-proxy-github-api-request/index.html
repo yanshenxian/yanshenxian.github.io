@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>为 gitalk 代理 github api 请求</title>
+
+    
+    <link rel="alternate"
+        type="application/atom+xml"
+        title="RSS" href="https://blog.yanshenxian.xyz/atom.xml">
+    
+
+    
+    <link rel="stylesheet" href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;site.css">
+    
+    
+
+    
+    
+</head>
+
+<body>
+    <div class="container">
+        <div id="mobile-navbar" class="mobile-navbar">
+            <div class="mobile-header-logo">
+                <a href="/" class="logo">Blog</a>
+            </div>
+            <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+            <ul class="mobile-menu-list">
+                
+                <li class="mobile-menu-item">
+                    <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz">
+                        Home
+                    </a>
+                </li>
+                
+                <li class="mobile-menu-item">
+                    <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;categories">
+                        Categories
+                    </a>
+                </li>
+                
+                <li class="mobile-menu-item">
+                    <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;tags">
+                        Tags
+                    </a>
+                </li>
+                
+                <li class="mobile-menu-item">
+                    <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;about">
+                        About
+                    </a>
+                </li>
+                
+            </ul>
+        </nav>
+
+        <div class="wrapper-not-footer">
+            <header id="header">
+                <!-- <div class="logo"><a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz">Blog</a></div> -->
+                <a class="profile-icon" href="/">
+                    <img src="&#x2F;avatar.jpg" alt="profile picture">
+                </a>
+                <nav class="menu">
+                    <ul>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz">
+                                Home
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;categories">
+                                Categories
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;tags">
+                                Tags
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;about">
+                                About
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </nav>
+            </header>
+    
+            <main>
+                <div class="content" id="mobile-panel">
+                    
+
+<div class="post-toc deprecated" id="post-toc">
+    <p class="post-toc-title">目录</p>
+    <div class="post-toc-content always-active">
+        <nav id="TableOfContents">
+            <ol>
+                
+                <li>
+                    <a href="https://blog.yanshenxian.xyz/article/gitalk-proxy-github-api-request/#xiu-gai-gitalk-yuan-ma" class="toc-link">修改 gitalk 源码</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://blog.yanshenxian.xyz/article/gitalk-proxy-github-api-request/#da-jian-dai-li-fu-wu-qi" class="toc-link">搭建代理服务器</a>
+                    
+                </li>
+                
+            </ol>
+        </nav>
+    </div>
+</div>
+
+
+<article class="post">
+    
+<header class="post__header">
+    <h1 class="post__title  deprecated">
+        <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;article&#x2F;gitalk-proxy-github-api-request&#x2F;"> 为 gitalk 代理 github api 请求 </a>
+    </h1>
+    <div class="post__meta">
+        <span class="post__time">2020-08-14</span>
+        
+    </div>
+</header>
+
+    <div class="post-content deprecated">
+        <deprecated-exclude>
+<p>由于 <code>gitalk</code> 使用 <code>oauth app</code> 来实现评论功能，其权限粒度过大，<strong>授权 <code>Token</code> 具备用户所有的公共仓库的读写权限</strong>，如果不小心泄露或者有人作恶，可能造成严重危害。</p>
+<p>我看网上有人说搭建博客使用一个单独的账号来创建评论 <code>issues</code> 仓库以避免泄露危害，这种说法是错误的，<code>Token</code> 泄露带来的危害是对评论用户来讲的，并不是博客主。</p>
+<p>要解决这个问题，暂时有两个方法</p>
+<ol>
+<li>
+<p>评论用户授权一个对自己无危害的账号来评论，另外可以在 <a href="https://github.com/settings/applications">settings/applications</a> 里面取消自己大号原来的授权。</p>
+</li>
+<li>
+<p>让网站废弃 <code>gitalk</code> 评论系统，可以用 <a href="https://github.com/utterance/utterances">utterances</a> 替代，这是一个 <code>github app</code>，可以做到细粒度权限控制，只需要授权托管评论的仓库的 <code>issues</code> 相关权限即可。</p>
+</li>
+</ol>
+</deprecated-exclude>
+<span id="continue-reading"></span><deprecated-exclude>
+<p>一个博主完全可以通过恶意脚本或者本文所说的反代功能来收集评论用户的 <code>Token</code>。</p>
+<p>关于此问题的参考链接如下：</p>
+<ul>
+<li><a href="https://www.v2ex.com/t/535608">建议大家弃用 gitalk 和 gitment 等权限过高的 github OAuth App</a></li>
+<li><a href="https://docs.github.com/en/developers/apps/differences-between-github-apps-and-oauth-apps">github apps 和 oauth apps 两者的区别</a></li>
+</ul>
+</deprecated-exclude>
+<hr />
+<p>博客当前使用了 <a href="https://github.com/gitalk/gitalk">gitalk</a> 来评论，但是由于国内网络问题，访问 <code>api.github.com</code> 经常被墙，所以考虑加一层代理小优化一下。</p>
+<p>gitalk 原生并不支持 api 代理，google 搜索也没有发现现成的方案，只能自己瞎鼓捣了。</p>
+<h2 id="xiu-gai-gitalk-yuan-ma"><a class="zola-anchor" href="#xiu-gai-gitalk-yuan-ma" aria-label="Anchor link for: xiu-gai-gitalk-yuan-ma">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z"/></svg> 
+
+    
+
+</a>
+修改 gitalk 源码</h2>
+<p>改动涉及 <code>src/gitalk.jsx</code>、<code>src/util.js</code>、<code>typings/index.d.ts</code> 这三个文件，已提交 <a href="https://github.com/gitalk/gitalk/pull/401">相关 PR</a></p>
+<p>使用 <code>npm run build</code> 构建 js 文件，构建结果位于 <code>dist/gitalk.min.js</code></p>
+<p>最后配置你自己的代理地址就行了</p>
+<pre style="background-color:#ffffff;">
+<code><span style="font-weight:bold;color:#a71d5d;">var </span><span style="color:#323232;">gitalk </span><span style="font-weight:bold;color:#a71d5d;">= new </span><span style="color:#323232;">Gitalk({
+    </span><span style="font-style:italic;color:#969896;">// 其他配置省略
+    </span><span style="font-weight:bold;color:#a71d5d;">...
+    </span><span style="color:#323232;">proxyGithubApi: </span><span style="color:#183691;">&quot;https://proxy-github-api.{{USERNAME}}.workers.dev&quot;</span><span style="color:#323232;">,
+    </span><span style="font-weight:bold;color:#a71d5d;">...
+</span><span style="color:#323232;">})
+</span></code></pre><h2 id="da-jian-dai-li-fu-wu-qi"><a class="zola-anchor" href="#da-jian-dai-li-fu-wu-qi" aria-label="Anchor link for: da-jian-dai-li-fu-wu-qi">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z"/></svg> 
+
+    
+
+</a>
+搭建代理服务器</h2>
+<p>如果是在自己的服务器上用搭建反代服务器，有一些地方需要注意</p>
+<ol>
+<li>
+<p><code>header</code> 中的 <code>authorization</code> 必须传递下去</p>
+</li>
+<li>
+<p><code>gitalk</code> 评论请求用到了原始响应里的接口地址，必须进行反代域名替换</p>
+</li>
+</ol>
+<p>本着白嫖的心思，直接用 <a href="https://workers.cloudflare.com/">cloudflare worker</a>，每天支持10万次免费请求。</p>
+<p>完整代码如下所示</p>
+<div class="embed-wrapper">
+    <div data-gist-id="yanshenxian&#x2F;c720ecdafe160653f80a6fbd116916c5"></div>
+</div>
+<p>上面的脚本参考了 <a href="https://blog.ichr.me/post/use-disqus-conveniently/">在特殊地区科学使用 Disqus 评论系统</a></p>
+
+    </div>
+
+    
+    
+
+    
+    <div class="article license">
+        <div class="article license body">
+            <u>本文书写费时费力费脑，转载请注明原始地址 😀</u> <br/>
+            <span class ="label">标题</span>: 为 gitalk 代理 github api 请求 <br/>
+            <span class ="label">链接</span>: https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;article&#x2F;gitalk-proxy-github-api-request&#x2F; <br/>
+        </div>    
+    </div>
+
+
+    <div class="post-footer">
+        
+        
+        <div class="post-tags">
+            <span style="font-weight: bold; color:#183691;">标签: </span>
+            
+            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;tags&#x2F;yuan-chuang&#x2F;">#原创</a>
+            
+            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;tags&#x2F;zola&#x2F;">#Zola</a>
+            
+        </div>
+        
+
+        
+        <div class="post-nav">
+            
+            <a class="previous" href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;article&#x2F;anti-open-write-read-more&#x2F;">‹ 去除某些博客阅读全文需要关注公众号的限制</a>
+            
+            
+            <a class="next" href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;article&#x2F;having-problem-with-wsl-proxy&#x2F;">配置 wsl 代理遇到的一些坑 ›</a>
+            
+            
+            
+        </div>
+        
+
+        
+    </div>
+
+    
+    
+</article>
+
+
+                </div>
+                
+
+
+
+
+
+<script src="https://utteranc.es/client.js" repo="yanshenxian/yanshenxian.github.io" issue-term="title" theme="github-light" crossorigin="anonymous" async></script>
+
+
+
+            </main>
+        </div>
+
+        <footer>
+    <p>
+        © yanshenxian&#x27;s blog 2020 Powered by <a target="_blank"
+            href="https://getzola.org/">Zola</a>, Theme <a target="_blank"
+            href="https://www.getzola.org/themes/even/">even</a>.
+    </p>
+</footer>
+        <a class="back-to-top" id="scroll_to_top_id">
+    <div>
+        <span><img src="/back_top.png"/></span>
+    </div>
+    <div style="float: right;">
+        <span id="scrollpercent">0</span>%
+    </div>
+</a>
+    </div>
+
+
+</body>
+
+
+<script type="text/javascript" src="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;even.js"></script>
+<script type="text/javascript" src="/js/scroll.js"></script>
+
+<script src="/js/slideout.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gist-embed@1.0.4/dist/gist-embed.min.js"></script>
+
+
+
+
+</html>

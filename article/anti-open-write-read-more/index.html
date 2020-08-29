@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>去除某些博客阅读全文需要关注公众号的限制</title>
+
+    
+    <link rel="alternate"
+        type="application/atom+xml"
+        title="RSS" href="https://blog.yanshenxian.xyz/atom.xml">
+    
+
+    
+    <link rel="stylesheet" href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;site.css">
+    
+    
+
+    
+    
+</head>
+
+<body>
+    <div class="container">
+        <div id="mobile-navbar" class="mobile-navbar">
+            <div class="mobile-header-logo">
+                <a href="/" class="logo">Blog</a>
+            </div>
+            <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+            <ul class="mobile-menu-list">
+                
+                <li class="mobile-menu-item">
+                    <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz">
+                        Home
+                    </a>
+                </li>
+                
+                <li class="mobile-menu-item">
+                    <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;categories">
+                        Categories
+                    </a>
+                </li>
+                
+                <li class="mobile-menu-item">
+                    <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;tags">
+                        Tags
+                    </a>
+                </li>
+                
+                <li class="mobile-menu-item">
+                    <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;about">
+                        About
+                    </a>
+                </li>
+                
+            </ul>
+        </nav>
+
+        <div class="wrapper-not-footer">
+            <header id="header">
+                <!-- <div class="logo"><a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz">Blog</a></div> -->
+                <a class="profile-icon" href="/">
+                    <img src="&#x2F;avatar.jpg" alt="profile picture">
+                </a>
+                <nav class="menu">
+                    <ul>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz">
+                                Home
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;categories">
+                                Categories
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;tags">
+                                Tags
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;about">
+                                About
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </nav>
+            </header>
+    
+            <main>
+                <div class="content" id="mobile-panel">
+                    
+
+
+<article class="post">
+    
+<header class="post__header">
+    <h1 class="post__title ">
+        <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;article&#x2F;anti-open-write-read-more&#x2F;"> 去除某些博客阅读全文需要关注公众号的限制 </a>
+    </h1>
+    <div class="post__meta">
+        <span class="post__time">2020-08-12</span>
+        
+    </div>
+</header>
+
+    <div class="post-content">
+        <p>最近好像突然流行起来了在博客里面设置阅读全文需要关注公众号获取验证码的垃圾操作，甚至一些托管在 github pages 上的静态博客也搞了，实在是一种脱裤子放屁的行为。</p>
+<span id="continue-reading"></span>
+<p>需要获取验证码的案例如下图</p>
+<p><img src="/image/2020/08/open-write-read-more.bmp" alt="open-write-read-more" /></p>
+<p>可以看到这个功能其实是由 <del>openwrite.cn</del> 提供验证功能</p>
+<p>输入验证码之后会调用接口 <code>https://my.openwrite.cn/code/check?blogId=xxx&amp;code=xxx</code></p>
+<p>接口响应也很简单 <code>{&quot;result&quot;:true}</code> 说明全文内容就在本地，只是被隐藏起来了。</p>
+<p>所以我们可以通过如下几种方法来去除限制。</p>
+<ol>
+<li>
+<p>[下策] 使用匿名的验证码生成接口 <code>https://my.openwrite.cn/code/generate?blogId=xxx</code>，<code>blogId</code> 参数可以在网页源代码中找到。</p>
+</li>
+<li>
+<p>[中策] 使用 <a href="https://www.tampermonkey.net/">Tampermonkey</a> 的 <a href="https://greasyfork.org/zh-TW/scripts/392670-%E5%8E%BB%E9%99%A4%E5%8D%9A%E5%AE%A2%E5%AF%BC%E6%B5%81%E5%85%AC%E4%BC%97%E5%8F%B7/code?version=824775">去除博客导流公众号脚本
+</a></p>
+</li>
+<li>
+<p>[上策] 直接阅读其他博客，还可以用 <a href="https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=zh-CN">uBlock Origin</a> 或者 <a href="https://chrome.google.com/webstore/detail/content-farm-terminator/lcghoajegeldpfkfaejegfobkapnemjl?hl=zh-CN">终结内容农场</a> 扩展将网站加入黑名单。</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+
+    
+
+    <div class="post-footer">
+        
+        
+        <div class="post-tags">
+            <span style="font-weight: bold; color:#183691;">标签: </span>
+            
+            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;tags&#x2F;fa-xian&#x2F;">#发现</a>
+            
+        </div>
+        
+
+        
+        <div class="post-nav">
+            
+            <a class="previous" href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;article&#x2F;build-and-deploy-zola-on-github-pages&#x2F;">‹ 在 github上发布你的 zola 博客</a>
+            
+            
+            <a class="next" href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;article&#x2F;gitalk-proxy-github-api-request&#x2F;">为 gitalk 代理 github api 请求 ›</a>
+            
+            
+            
+        </div>
+        
+
+        
+    </div>
+
+    
+    
+</article>
+
+
+                </div>
+                
+
+
+
+
+
+<script src="https://utteranc.es/client.js" repo="yanshenxian/yanshenxian.github.io" issue-term="title" theme="github-light" crossorigin="anonymous" async></script>
+
+
+
+            </main>
+        </div>
+
+        <footer>
+    <p>
+        © yanshenxian&#x27;s blog 2020 Powered by <a target="_blank"
+            href="https://getzola.org/">Zola</a>, Theme <a target="_blank"
+            href="https://www.getzola.org/themes/even/">even</a>.
+    </p>
+</footer>
+        <a class="back-to-top" id="scroll_to_top_id">
+    <div>
+        <span><img src="/back_top.png"/></span>
+    </div>
+    <div style="float: right;">
+        <span id="scrollpercent">0</span>%
+    </div>
+</a>
+    </div>
+
+
+</body>
+
+
+<script type="text/javascript" src="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;even.js"></script>
+<script type="text/javascript" src="/js/scroll.js"></script>
+
+<script src="/js/slideout.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gist-embed@1.0.4/dist/gist-embed.min.js"></script>
+
+
+
+
+</html>

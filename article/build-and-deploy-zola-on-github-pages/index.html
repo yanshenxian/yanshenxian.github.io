@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>在 github上发布你的 zola 博客</title>
+
+    
+    <link rel="alternate"
+        type="application/atom+xml"
+        title="RSS" href="https://blog.yanshenxian.xyz/atom.xml">
+    
+
+    
+    <link rel="stylesheet" href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;site.css">
+    
+    
+
+    
+    
+</head>
+
+<body>
+    <div class="container">
+        <div id="mobile-navbar" class="mobile-navbar">
+            <div class="mobile-header-logo">
+                <a href="/" class="logo">Blog</a>
+            </div>
+            <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+            <ul class="mobile-menu-list">
+                
+                <li class="mobile-menu-item">
+                    <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz">
+                        Home
+                    </a>
+                </li>
+                
+                <li class="mobile-menu-item">
+                    <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;categories">
+                        Categories
+                    </a>
+                </li>
+                
+                <li class="mobile-menu-item">
+                    <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;tags">
+                        Tags
+                    </a>
+                </li>
+                
+                <li class="mobile-menu-item">
+                    <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;about">
+                        About
+                    </a>
+                </li>
+                
+            </ul>
+        </nav>
+
+        <div class="wrapper-not-footer">
+            <header id="header">
+                <!-- <div class="logo"><a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz">Blog</a></div> -->
+                <a class="profile-icon" href="/">
+                    <img src="&#x2F;avatar.jpg" alt="profile picture">
+                </a>
+                <nav class="menu">
+                    <ul>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz">
+                                Home
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;categories">
+                                Categories
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;tags">
+                                Tags
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;about">
+                                About
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </nav>
+            </header>
+    
+            <main>
+                <div class="content" id="mobile-panel">
+                    
+
+<div class="post-toc" id="post-toc">
+    <p class="post-toc-title">目录</p>
+    <div class="post-toc-content always-active">
+        <nav id="TableOfContents">
+            <ol>
+                
+                <li>
+                    <a href="https://blog.yanshenxian.xyz/article/build-and-deploy-zola-on-github-pages/#pei-zhi-wsl2-kai-fa-huan-jing" class="toc-link">配置 Wsl2 开发环境</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://blog.yanshenxian.xyz/article/build-and-deploy-zola-on-github-pages/#wsl2-zhong-an-zhuang-zola" class="toc-link">Wsl2 中安装 Zola</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://blog.yanshenxian.xyz/article/build-and-deploy-zola-on-github-pages/#ben-di-gou-jian-zola-xiang-mu" class="toc-link">本地构建 Zola 项目</a>
+                    
+                    <ol>
+                        
+                        <li>
+                            <a href="https://blog.yanshenxian.xyz/article/build-and-deploy-zola-on-github-pages/#chu-shi-hua" class="toc-link">初始化</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://blog.yanshenxian.xyz/article/build-and-deploy-zola-on-github-pages/#pei-zhi-zhu-ti" class="toc-link">配置主题</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://blog.yanshenxian.xyz/article/build-and-deploy-zola-on-github-pages/#ben-di-yun-xing" class="toc-link">本地运行</a>
+                        </li>
+                        
+                    </ol>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://blog.yanshenxian.xyz/article/build-and-deploy-zola-on-github-pages/#chuang-jian-fa-bu" class="toc-link">创建 &amp;&amp; 发布</a>
+                    
+                </li>
+                
+            </ol>
+        </nav>
+    </div>
+</div>
+
+
+<article class="post">
+    
+<header class="post__header">
+    <h1 class="post__title ">
+        <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;article&#x2F;build-and-deploy-zola-on-github-pages&#x2F;"> 在 github上发布你的 zola 博客 </a>
+    </h1>
+    <div class="post__meta">
+        <span class="post__time">2020-08-08</span>
+        
+    </div>
+</header>
+
+    <div class="post-content">
+        <p>本地开发环境 <code>WSL2</code>，选取的博客框架 <code>Zola</code>，托管服务 <code>github pages</code>，自动构建 <code>github actions</code>，另外自定义域名还需要一个 DNS 服务商，这里我用的是 <code>cloudflare</code>，顺便白嫖 CDN。</p>
+<p><code>Rust</code> 是个很酷的语言。</p>
+<span id="continue-reading"></span><h2 id="pei-zhi-wsl2-kai-fa-huan-jing"><a class="zola-anchor" href="#pei-zhi-wsl2-kai-fa-huan-jing" aria-label="Anchor link for: pei-zhi-wsl2-kai-fa-huan-jing">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z"/></svg> 
+
+    
+
+</a>
+配置 Wsl2 开发环境</h2>
+<p>因为刚从 Mac OS 切到 Win10 开发环境，也是第一次尝试 <code>WSL2</code>。虽然这没有 Mac OS 或者 Linux 好用，但是也极大的增强了 win10 开发的体验。</p>
+<ol>
+<li>
+<p>首先根据 <a href="https://docs.microsoft.com/zh-cn/windows/wsl/install-win10">官网文档</a> 开启 <code>WSL2</code></p>
+</li>
+<li>
+<p>运行 <code>WSL</code> 命令启动环境，这个时候你就可以看到一个简洁的 linux 终端了，<strong>wsl2 的文件和端口是和宿主机共享的。</strong> 比如你 c 盘上的文件会映射到 <code>/mnt/c/</code> 这个路径，你在 WSL 里面启动了一个 web 服务监听端口 8080，你就可以在宿主机上直接使用 127.0.0.1:8080 访问它。</p>
+</li>
+<li>
+<p>然后像在 Linux 上一样配置开发环境，修改国内镜像、安装 git、zsh、oh-my-zsh等等操作，你可能还会在宿主机上安装 VS Code + <code>Remote - WSL</code> 插件，这个用来管理 WSL 里的项目很方便，它的终端默认就是 WSL 的终端。另外也可以换个漂亮点的终端替换掉 cmd 或者 powershell，<code>windows Terminal</code> 就是个不错的选择。</p>
+</li>
+<li>
+<p>花了一堆时间终于搞得有模有样了，你可能还会碰到一些问题，它终究不是一个完整的 linux 。。。比如 <code>ping</code> 命令无法使用，搜索发现需要 <code>sudo chmod u+s</code> 下，再比如域名解析会莫名其妙的出现问题，解决方法是修改 <code>resolv.conf</code> 文件 (必须先在 <code>wsl.conf</code> 里设置 generateResolvConf 参数否则重启无效)</p>
+</li>
+</ol>
+<p>这里我总结了另外一篇文章 <a href="https://blog.yanshenxian.xyz/article/having-problem-with-wsl-proxy/">wsl 配置代理遇到的一些坑</a>。</p>
+<h2 id="wsl2-zhong-an-zhuang-zola"><a class="zola-anchor" href="#wsl2-zhong-an-zhuang-zola" aria-label="Anchor link for: wsl2-zhong-an-zhuang-zola">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z"/></svg> 
+
+    
+
+</a>
+Wsl2 中安装 Zola</h2>
+<p>因为在安装的过程中，我遇到了几个坑，所以这里单独提出来说下。</p>
+<p>首先看下 <a href="https://www.getzola.org/documentation/getting-started/installation/">Zola 文档</a>，官网没有提供 Ubuntu/Debian 系的源，但是提供了一个 <a href="https://snapcraft.io/install/zola/ubuntu">Snapcraft</a> 的方式安装。</p>
+<p>在 <code>wsl2</code> 里用 snap 就会出现一些奇怪的问题，你 <code>sudo apt install snapd</code> 之后并没法直接使用 snap，当你尝试 <code>sudo snap install zola --edge</code> 你会得到一个错误信息</p>
+<blockquote>
+<p>error: cannot communicate with server: Post http://localhost/v2/snaps/zola: dial unix /run/snapd.socket: connect: no such file or directory...</p>
+</blockquote>
+<p>因为 wsl 终究不是一个完整的 linux 系统，所有有些命令比如 systemctl 没法使用。错误解决可以查看这个 <a href="https://github.com/microsoft/WSL/issues/5126#issuecomment-653715201">issue</a></p>
+<p>好了 就算你尝试用上面 issue 的方法暂时解决了 snap 安装的命令，当你接下来准备在本地构建运行的时候又会出现 <code>No port available</code> 的错误。Snap 安装的 Zola 不知怎的没法监听端口。</p>
+<p>所以我放弃了 Snap 的方式，但是我又不想源码编译安装。幸好 Zola 的 github 里提供了 linux 版本的 Release 包。就直接拿过来用吧。。</p>
+<h2 id="ben-di-gou-jian-zola-xiang-mu"><a class="zola-anchor" href="#ben-di-gou-jian-zola-xiang-mu" aria-label="Anchor link for: ben-di-gou-jian-zola-xiang-mu">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z"/></svg> 
+
+    
+
+</a>
+本地构建 Zola 项目</h2>
+<p>为了方便开发，我们把项目放在 wsl 子系统里面，之后在宿主机上用 VSCode 进行开发。</p>
+<h3 id="chu-shi-hua"><a class="zola-anchor" href="#chu-shi-hua" aria-label="Anchor link for: chu-shi-hua">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm9.989 7.53l1.726-.209c.055.44.203.777.445 1.01.24.232.533.349.876.349.368 0 .678-.14.93-.42.251-.279.377-.655.377-1.13 0-.448-.12-.803-.362-1.066a1.153 1.153 0 0 0-.882-.393c-.228 0-.501.044-.819.133l.197-1.453c.482.012.85-.092 1.105-.315.253-.222.38-.517.38-.885 0-.313-.093-.563-.279-.75-.186-.185-.434-.278-.743-.278a1.07 1.07 0 0 0-.78.317c-.216.212-.347.52-.394.927l-1.644-.28c.114-.562.287-1.012.517-1.348.231-.337.553-.601.965-.794a3.24 3.24 0 0 1 1.387-.289c.876 0 1.579.28 2.108.838.436.457.653.973.653 1.549 0 .817-.446 1.468-1.339 1.955.533.114.96.37 1.28.768.319.398.478.878.478 1.441 0 .817-.298 1.513-.895 2.088-.596.576-1.339.864-2.228.864-.842 0-1.54-.243-2.094-.727-.555-.485-.876-1.118-.965-1.901z"/></svg> 
+
+
+    
+
+</a>
+初始化</h3>
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">λ zola init my-blog
+Welcome to Zola!
+Please answer a few questions to get started quickly.
+Any choices made can be changed by modifying the `config.toml` file later.
+</span><span style="font-weight:bold;color:#a71d5d;">&gt;</span><span style="color:#323232;"> What is the URL of your site</span><span style="font-weight:bold;color:#a71d5d;">?</span><span style="color:#323232;"> (https://example.com)</span><span style="color:#62a35c;">:</span><span style="color:#323232;"> https://blog.yanshenxian.xyz
+</span><span style="font-weight:bold;color:#a71d5d;">&gt;</span><span style="color:#323232;"> Do you want to enable Sass compilation</span><span style="font-weight:bold;color:#a71d5d;">? [</span><span style="color:#323232;">Y/n</span><span style="font-weight:bold;color:#a71d5d;">]</span><span style="color:#323232;">: Y
+</span><span style="font-weight:bold;color:#a71d5d;">&gt;</span><span style="color:#323232;"> Do you want to enable syntax highlighting</span><span style="font-weight:bold;color:#a71d5d;">? [</span><span style="color:#323232;">y/N</span><span style="font-weight:bold;color:#a71d5d;">]</span><span style="color:#323232;">: Y
+</span><span style="font-weight:bold;color:#a71d5d;">&gt;</span><span style="color:#323232;"> Do you want to build a search index of the content</span><span style="font-weight:bold;color:#a71d5d;">? [</span><span style="color:#323232;">y/N</span><span style="font-weight:bold;color:#a71d5d;">]</span><span style="color:#323232;">: N
+
+Done! Your site was created in </span><span style="color:#183691;">&quot;/home/user/my-blog&quot;
+
+</span><span style="color:#323232;">Get started by moving into the directory and using the built-in server: `zola serve`
+Visit https://www.getzola.org for the full documentation.
+
+λ cd my-blog </span><span style="font-weight:bold;color:#a71d5d;">&amp;&amp; </span><span style="color:#323232;">ls
+config.toml  content  sass  static  templates  themes
+</span></code></pre>
+<p>基础的架子已经生成好了，为了了解 <code>config.toml</code> 配置文件，配置相关参考 <a href="https://www.getzola.org/documentation/getting-started/configuration/">Zola 文档</a></p>
+<h3 id="pei-zhi-zhu-ti"><a class="zola-anchor" href="#pei-zhi-zhu-ti" aria-label="Anchor link for: pei-zhi-zhu-ti">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm9.989 7.53l1.726-.209c.055.44.203.777.445 1.01.24.232.533.349.876.349.368 0 .678-.14.93-.42.251-.279.377-.655.377-1.13 0-.448-.12-.803-.362-1.066a1.153 1.153 0 0 0-.882-.393c-.228 0-.501.044-.819.133l.197-1.453c.482.012.85-.092 1.105-.315.253-.222.38-.517.38-.885 0-.313-.093-.563-.279-.75-.186-.185-.434-.278-.743-.278a1.07 1.07 0 0 0-.78.317c-.216.212-.347.52-.394.927l-1.644-.28c.114-.562.287-1.012.517-1.348.231-.337.553-.601.965-.794a3.24 3.24 0 0 1 1.387-.289c.876 0 1.579.28 2.108.838.436.457.653.973.653 1.549 0 .817-.446 1.468-1.339 1.955.533.114.96.37 1.28.768.319.398.478.878.478 1.441 0 .817-.298 1.513-.895 2.088-.596.576-1.339.864-2.228.864-.842 0-1.54-.243-2.094-.727-.555-.485-.876-1.118-.965-1.901z"/></svg> 
+
+
+    
+
+</a>
+配置主题</h3>
+<p>Zola 提供的 <a href="https://www.getzola.org/themes/">主题列表</a> 有限，但是对我来说够用了。</p>
+<p>这里我选的是 <a href="https://www.getzola.org/themes/even/">even</a>，基于我自己的喜好，我小小的改动了一些。可以参考 <a href="https://github.com/yanshenxian/yanshenxian.github.io/blob/master/README.md">README.md</a></p>
+<p>你可以从我的 github 博客仓库 拷贝我的配置和修改后的主题，<code>even</code> 主题在 <code>themes/even/content</code> 里自带了一些示例文章，可以参考下文章编写规则（简单说就是一些 metadata 头部 + markdown 内容）</p>
+<h3 id="ben-di-yun-xing"><a class="zola-anchor" href="#ben-di-yun-xing" aria-label="Anchor link for: ben-di-yun-xing">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm9.989 7.53l1.726-.209c.055.44.203.777.445 1.01.24.232.533.349.876.349.368 0 .678-.14.93-.42.251-.279.377-.655.377-1.13 0-.448-.12-.803-.362-1.066a1.153 1.153 0 0 0-.882-.393c-.228 0-.501.044-.819.133l.197-1.453c.482.012.85-.092 1.105-.315.253-.222.38-.517.38-.885 0-.313-.093-.563-.279-.75-.186-.185-.434-.278-.743-.278a1.07 1.07 0 0 0-.78.317c-.216.212-.347.52-.394.927l-1.644-.28c.114-.562.287-1.012.517-1.348.231-.337.553-.601.965-.794a3.24 3.24 0 0 1 1.387-.289c.876 0 1.579.28 2.108.838.436.457.653.973.653 1.549 0 .817-.446 1.468-1.339 1.955.533.114.96.37 1.28.768.319.398.478.878.478 1.441 0 .817-.298 1.513-.895 2.088-.596.576-1.339.864-2.228.864-.842 0-1.54-.243-2.094-.727-.555-.485-.876-1.118-.965-1.901z"/></svg> 
+
+
+    
+
+</a>
+本地运行</h3>
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">λ zola serve
+Building site...
+-</span><span style="font-weight:bold;color:#a71d5d;">&gt;</span><span style="color:#323232;"> Creating 3 pages (1 orphan), 0 sections, and processing 0 images
+Done in 54ms.
+
+Listening for changes in /home/user/my-blog/{content, config.toml, static, templates, themes, sass}
+Press Ctrl+C to stop
+
+Web server is available at http://127.0.0.1:1025
+</span></code></pre>
+<p>为了避免没有文章的尴尬，可以先 <code>cp -r themes/even/content content/</code> 构建部署下主题自带的测试文章</p>
+<blockquote>
+<p>我测试过不开启索引的情况下， Zola 生成 1万 篇文章耗时不超过 10s，文章都是抓取的真实博客。所以它的性能还是非常不错的。
+但是开启索引就有点问题了。程序莫名卡住。原因待查！</p>
+</blockquote>
+<p>然后用宿主机访问 http://127.0.0.1:1025 就能看到搭建好的博客网站了</p>
+<h2 id="chuang-jian-fa-bu"><a class="zola-anchor" href="#chuang-jian-fa-bu" aria-label="Anchor link for: chuang-jian-fa-bu">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z"/></svg> 
+
+    
+
+</a>
+创建 &amp;&amp; 发布</h2>
+<p>你可能需要先看下相关的文档</p>
+<ul>
+<li><a href="https://docs.github.com/cn/github/working-with-github-pages/about-github-pages">Github Page 文档</a></li>
+<li><a href="https://github.com/shalzz/zola-deploy-action/">Zola Deploy 文档</a></li>
+</ul>
+<ol>
+<li>
+<p>创建一个命名为 <code>&lt;user&gt;.github.io</code> 的仓库，例如 <a href="https://github.com/yanshenxian/yanshenxian.github.io">yanshenxian.github.io</a></p>
+</li>
+<li>
+<p>创建 <code>github actions</code> 脚本，具体见 <a href="https://github.com/yanshenxian/yanshenxian.github.io/blob/master/.github/workflows/ci.yml">ci.yml</a></p>
+</li>
+<li>
+<p>申请一个 <code>access token</code>，申请方法见上面的 <code>Zola Deploy 文档</code>，并在仓库的 <code>Settings-&gt;Secrets</code> 里设置环境变量，变量名称和 ci 脚本中的变量名称保持一致 <code>${{ secrets.TOKEN }}</code> </p>
+</li>
+<li>
+<p>创建 <code>static/CNAME</code> 文件，里面写上你要自定义的域名，具体见 <a href="https://github.com/yanshenxian/yanshenxian.github.io/blob/master/static/CNAME">CNAME</a>，ci 构建的时候会自动把 <code>static</code> 里的文件拷贝到 <code>gh-pages</code> 分支的根目录，如果没有 <code>CNAME</code> 这个文件，每次脚本构建之后会清除之前设置的域名重定向。</p>
+</li>
+<li>
+<p>将本地项目 push 到仓库的 <code>master</code> 分支，如果没问题，可以在 <code>commit id</code> 旁边看见构建的标志，脚本会自动构建出一个 <code>gh-pages</code> 分支，里面生成了所有的静态文件</p>
+</li>
+<li>
+<p>在仓库的 <code>Settings-&gt;Github pages</code> 确认相关配置，<strong>page build 的 source branch 是 gh-pages</strong>
+<img src="/image/2020/08/github-pages-settings.bmp" alt="github-pages-settings" /></p>
+</li>
+<li>
+<p>在 <a href="https://dash.cloudflare.com/">Cloudflare</a> 中设置 DNS CNAME 以及启用 cf 的 cdn proxy，比起 Github 经常被墙... cf 好点
+<img src="/image/2020/08/github-pages-cname-setting.bmp" alt="github-pages-cname-setting" />
+<strong>如果 github pages settings 中设置了强制 ssl，那么 cf 中 ssl 也必须设置为 Full，要不然会造成无限重定向。</strong></p>
+</li>
+<li>
+<p>现在你可以用你的自定义域名访问你的博客了，Enjoy~</p>
+</li>
+</ol>
+<p>由于我是搭建完之后再写这篇文章的，有些步骤可能没那么明确了，比如我因为有一些踩过的坑，所以调整了些步骤，有些组件也不是必要的，比如 <code>wsl2</code>、<code>cloudflare</code></p>
+<p>但是总体操作应该可以顺下来。多看官方文档也会有很大的帮助。</p>
+
+    </div>
+
+    
+    
+
+    
+    <div class="article license">
+        <div class="article license body">
+            <u>本文书写费时费力费脑，转载请注明原始地址 😀</u> <br/>
+            <span class ="label">标题</span>: 在 github上发布你的 zola 博客 <br/>
+            <span class ="label">链接</span>: https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;article&#x2F;build-and-deploy-zola-on-github-pages&#x2F; <br/>
+        </div>    
+    </div>
+
+
+    <div class="post-footer">
+        
+        
+        <div class="post-tags">
+            <span style="font-weight: bold; color:#183691;">标签: </span>
+            
+            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;tags&#x2F;yuan-chuang&#x2F;">#原创</a>
+            
+            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;tags&#x2F;zola&#x2F;">#Zola</a>
+            
+            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;tags&#x2F;wsl&#x2F;">#WSL</a>
+            
+        </div>
+        
+
+        
+        <div class="post-nav">
+            
+            
+            <a class="next" href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;article&#x2F;anti-open-write-read-more&#x2F;">去除某些博客阅读全文需要关注公众号的限制 ›</a>
+            
+            
+            
+        </div>
+        
+
+        
+    </div>
+
+    
+    
+</article>
+
+
+                </div>
+                
+
+
+
+
+
+<script src="https://utteranc.es/client.js" repo="yanshenxian/yanshenxian.github.io" issue-term="title" theme="github-light" crossorigin="anonymous" async></script>
+
+
+
+            </main>
+        </div>
+
+        <footer>
+    <p>
+        © yanshenxian&#x27;s blog 2020 Powered by <a target="_blank"
+            href="https://getzola.org/">Zola</a>, Theme <a target="_blank"
+            href="https://www.getzola.org/themes/even/">even</a>.
+    </p>
+</footer>
+        <a class="back-to-top" id="scroll_to_top_id">
+    <div>
+        <span><img src="/back_top.png"/></span>
+    </div>
+    <div style="float: right;">
+        <span id="scrollpercent">0</span>%
+    </div>
+</a>
+    </div>
+
+
+</body>
+
+
+<script type="text/javascript" src="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;even.js"></script>
+<script type="text/javascript" src="/js/scroll.js"></script>
+
+<script src="/js/slideout.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gist-embed@1.0.4/dist/gist-embed.min.js"></script>
+
+
+
+
+</html>

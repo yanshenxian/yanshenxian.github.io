@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>在 wsl 上配置 java 开发环境</title>
+
+    
+    <link rel="alternate"
+        type="application/atom+xml"
+        title="RSS" href="https://blog.yanshenxian.xyz/atom.xml">
+    
+
+    
+    <link rel="stylesheet" href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;site.css">
+    
+    
+
+    
+    
+</head>
+
+<body>
+    <div class="container">
+        <div id="mobile-navbar" class="mobile-navbar">
+            <div class="mobile-header-logo">
+                <a href="/" class="logo">Blog</a>
+            </div>
+            <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+            <ul class="mobile-menu-list">
+                
+                <li class="mobile-menu-item">
+                    <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz">
+                        Home
+                    </a>
+                </li>
+                
+                <li class="mobile-menu-item">
+                    <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;categories">
+                        Categories
+                    </a>
+                </li>
+                
+                <li class="mobile-menu-item">
+                    <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;tags">
+                        Tags
+                    </a>
+                </li>
+                
+                <li class="mobile-menu-item">
+                    <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;about">
+                        About
+                    </a>
+                </li>
+                
+            </ul>
+        </nav>
+
+        <div class="wrapper-not-footer">
+            <header id="header">
+                <!-- <div class="logo"><a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz">Blog</a></div> -->
+                <a class="profile-icon" href="/">
+                    <img src="&#x2F;avatar.jpg" alt="profile picture">
+                </a>
+                <nav class="menu">
+                    <ul>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz">
+                                Home
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;categories">
+                                Categories
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;tags">
+                                Tags
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;about">
+                                About
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </nav>
+            </header>
+    
+            <main>
+                <div class="content" id="mobile-panel">
+                    
+
+<div class="post-toc" id="post-toc">
+    <p class="post-toc-title">目录</p>
+    <div class="post-toc-content always-active">
+        <nav id="TableOfContents">
+            <ol>
+                
+                <li>
+                    <a href="https://blog.yanshenxian.xyz/article/java-development-in-wsl2/#dang-qian-que-xian" class="toc-link">当前缺陷</a>
+                    
+                    <ol>
+                        
+                        <li>
+                            <a href="https://blog.yanshenxian.xyz/article/java-development-in-wsl2/#wsl2-fang-wen-windows-wen-jian-xi-tong" class="toc-link">wsl2 访问 windows 文件系统</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://blog.yanshenxian.xyz/article/java-development-in-wsl2/#idea-dui-wsl2-de-zhi-chi-bing-bu-wan-shan" class="toc-link">idea 对 wsl2 的支持并不完善</a>
+                        </li>
+                        
+                    </ol>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://blog.yanshenxian.xyz/article/java-development-in-wsl2/#jie-jue-fang-an" class="toc-link">解决方案</a>
+                    
+                    <ol>
+                        
+                        <li>
+                            <a href="https://blog.yanshenxian.xyz/article/java-development-in-wsl2/#wsl2-zhuo-mian-huan-jing" class="toc-link">wsl2 桌面环境</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://blog.yanshenxian.xyz/article/java-development-in-wsl2/#ruan-jian-pei-zhi" class="toc-link">软件配置</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://blog.yanshenxian.xyz/article/java-development-in-wsl2/#she-zhi-zhong-wen-yu-yan" class="toc-link">设置中文语言</a>
+                        </li>
+                        
+                    </ol>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://blog.yanshenxian.xyz/article/java-development-in-wsl2/#zong-jie" class="toc-link">总结</a>
+                    
+                </li>
+                
+            </ol>
+        </nav>
+    </div>
+</div>
+
+
+<article class="post">
+    
+<header class="post__header">
+    <h1 class="post__title ">
+        <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;article&#x2F;java-development-in-wsl2&#x2F;"> 在 wsl 上配置 java 开发环境 </a>
+    </h1>
+    <div class="post__meta">
+        <span class="post__time">2020-08-29</span>
+        
+    </div>
+</header>
+
+    <div class="post-content">
+        <p>本以为现在的 wsl2 用于 java 开发是件很简单的事，之前我在 windows 上安装了 idea，只需要设置下 shell path 为 wsl.exe，终端、编译器、git 什么的都可以用，这看起来似乎很不错，但是实际上手项目开发的时候，才发现真实问题多多，远没有在 vs code 的 wsl2 使用方便。</p>
+<span id="continue-reading"></span><h2 id="dang-qian-que-xian"><a class="zola-anchor" href="#dang-qian-que-xian" aria-label="Anchor link for: dang-qian-que-xian">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z"/></svg> 
+
+    
+
+</a>
+当前缺陷</h2>
+<h3 id="wsl2-fang-wen-windows-wen-jian-xi-tong"><a class="zola-anchor" href="#wsl2-fang-wen-windows-wen-jian-xi-tong" aria-label="Anchor link for: wsl2-fang-wen-windows-wen-jian-xi-tong">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm9.989 7.53l1.726-.209c.055.44.203.777.445 1.01.24.232.533.349.876.349.368 0 .678-.14.93-.42.251-.279.377-.655.377-1.13 0-.448-.12-.803-.362-1.066a1.153 1.153 0 0 0-.882-.393c-.228 0-.501.044-.819.133l.197-1.453c.482.012.85-.092 1.105-.315.253-.222.38-.517.38-.885 0-.313-.093-.563-.279-.75-.186-.185-.434-.278-.743-.278a1.07 1.07 0 0 0-.78.317c-.216.212-.347.52-.394.927l-1.644-.28c.114-.562.287-1.012.517-1.348.231-.337.553-.601.965-.794a3.24 3.24 0 0 1 1.387-.289c.876 0 1.579.28 2.108.838.436.457.653.973.653 1.549 0 .817-.446 1.468-1.339 1.955.533.114.96.37 1.28.768.319.398.478.878.478 1.441 0 .817-.298 1.513-.895 2.088-.596.576-1.339.864-2.228.864-.842 0-1.54-.243-2.094-.727-.555-.485-.876-1.118-.965-1.901z"/></svg> 
+
+
+    
+
+</a>
+wsl2 访问 windows 文件系统</h3>
+<p>一开始我的项目文件是放在 windows 环境的，idea 也是安装在 window 上。idea 配置好了，终端确实能用，但是速度忒慢。执行个 git 或者 clear 命令就能卡好几秒。</p>
+<p>问题探讨详见 <a href="https://v2ex.com/t/701411">idea 2020.2 使用 WSL2 终端太卡了</a>。</p>
+<p><strong>总结</strong>: 当前的 wsl2 访问 windows 文件系统，No!</p>
+<h3 id="idea-dui-wsl2-de-zhi-chi-bing-bu-wan-shan"><a class="zola-anchor" href="#idea-dui-wsl2-de-zhi-chi-bing-bu-wan-shan" aria-label="Anchor link for: idea-dui-wsl2-de-zhi-chi-bing-bu-wan-shan">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm9.989 7.53l1.726-.209c.055.44.203.777.445 1.01.24.232.533.349.876.349.368 0 .678-.14.93-.42.251-.279.377-.655.377-1.13 0-.448-.12-.803-.362-1.066a1.153 1.153 0 0 0-.882-.393c-.228 0-.501.044-.819.133l.197-1.453c.482.012.85-.092 1.105-.315.253-.222.38-.517.38-.885 0-.313-.093-.563-.279-.75-.186-.185-.434-.278-.743-.278a1.07 1.07 0 0 0-.78.317c-.216.212-.347.52-.394.927l-1.644-.28c.114-.562.287-1.012.517-1.348.231-.337.553-.601.965-.794a3.24 3.24 0 0 1 1.387-.289c.876 0 1.579.28 2.108.838.436.457.653.973.653 1.549 0 .817-.446 1.468-1.339 1.955.533.114.96.37 1.28.768.319.398.478.878.478 1.441 0 .817-.298 1.513-.895 2.088-.596.576-1.339.864-2.228.864-.842 0-1.54-.243-2.094-.727-.555-.485-.876-1.118-.965-1.901z"/></svg> 
+
+
+    
+
+</a>
+idea 对 wsl2 的支持并不完善</h3>
+<p>既然 windows 上的 idea 用 wsl2 访问 windows 文件系统有问题，那我只要把项目放到 wsl2 里不就好了吗？</p>
+<p>虽然 JetBrains 已经在慢慢支持 wsl 了，比如可以直接 open wsl2 里的项目，还可以添加 wsl2 里的 node 框架。但是 idea 对 java 开发的支持还是很差。这里我遇到了两个问题。</p>
+<h4 id="wu-fa-shi-bie-multi-module-xiang-mu"><a class="zola-anchor" href="#wu-fa-shi-bie-multi-module-xiang-mu" aria-label="Anchor link for: wu-fa-shi-bie-multi-module-xiang-mu">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V11h-5v4.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v4.5zm13.55 10v-1.873h-3.81v-1.561l4.037-5.91h1.498v5.904h1.156v1.567h-1.156V18.5H17.05zm0-3.44v-3.18l-2.14 3.18h2.14z"/></svg> 
+
+
+    
+
+</a>
+无法识别 multi-module 项目</h4>
+<p>idea 只能识别到 parent，子 module 的加载会出错，无法正确配置 maven 项目。具体表现就是你看不见 Run 按钮，点击类里的定义无法跳转。</p>
+<p>观察发现子 module 的 pom.xml 报红，提示 <code>C:\wsl$\Debian\home\user\work\xxx\pom.xml (系统找不到指定的路径。).</code> 看起来是识别 parent pom 位置错乱了。</p>
+<p>问题追踪 <a href="https://youtrack.jetbrains.com/issue/IDEA-249046">issue</a></p>
+<p>当然你看到这说这也勉强能用，比如我就把它当成一个文本编辑器用，要运行直接在终端里面用 mvn 命令运行。或者我不用多 module 项目不久行了吗。一开始我也是这么将就的...</p>
+<h4 id="wu-fa-jian-ting-wen-jian-xiu-gai"><a class="zola-anchor" href="#wu-fa-jian-ting-wen-jian-xiu-gai" aria-label="Anchor link for: wu-fa-jian-ting-wen-jian-xiu-gai">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V11h-5v4.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v4.5zm13.55 10v-1.873h-3.81v-1.561l4.037-5.91h1.498v5.904h1.156v1.567h-1.156V18.5H17.05zm0-3.44v-3.18l-2.14 3.18h2.14z"/></svg> 
+
+
+    
+
+</a>
+无法监听文件修改</h4>
+<p>我尝试着拆成单 module 项目，确实，这个时候可以正确自动配置了。</p>
+<p>但是你会看到这样一条 <code>23:10 External file changes sync may be slow: Project files cannot be watched (are they under network mount?)</code> 警告提示。</p>
+<p>结果就是，你第一次运行正常，因为这个时候 target 目录是空的，它必须重新构建，如果再改了改源码重新运行，它还是执行之前的编译结果。</p>
+<p>问题追踪 <a href="https://youtrack.jetbrains.com/issue/IDEA-249301">issue</a></p>
+<h2 id="jie-jue-fang-an"><a class="zola-anchor" href="#jie-jue-fang-an" aria-label="Anchor link for: jie-jue-fang-an">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z"/></svg> 
+
+    
+
+</a>
+解决方案</h2>
+<p>最后我还是不得不用上了远程桌面环境...</p>
+<h3 id="wsl2-zhuo-mian-huan-jing"><a class="zola-anchor" href="#wsl2-zhuo-mian-huan-jing" aria-label="Anchor link for: wsl2-zhuo-mian-huan-jing">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm9.989 7.53l1.726-.209c.055.44.203.777.445 1.01.24.232.533.349.876.349.368 0 .678-.14.93-.42.251-.279.377-.655.377-1.13 0-.448-.12-.803-.362-1.066a1.153 1.153 0 0 0-.882-.393c-.228 0-.501.044-.819.133l.197-1.453c.482.012.85-.092 1.105-.315.253-.222.38-.517.38-.885 0-.313-.093-.563-.279-.75-.186-.185-.434-.278-.743-.278a1.07 1.07 0 0 0-.78.317c-.216.212-.347.52-.394.927l-1.644-.28c.114-.562.287-1.012.517-1.348.231-.337.553-.601.965-.794a3.24 3.24 0 0 1 1.387-.289c.876 0 1.579.28 2.108.838.436.457.653.973.653 1.549 0 .817-.446 1.468-1.339 1.955.533.114.96.37 1.28.768.319.398.478.878.478 1.441 0 .817-.298 1.513-.895 2.088-.596.576-1.339.864-2.228.864-.842 0-1.54-.243-2.094-.727-.555-.485-.876-1.118-.965-1.901z"/></svg> 
+
+
+    
+
+</a>
+wsl2 桌面环境</h3>
+<p>参考文章: <a href="https://zhuanlan.zhihu.com/p/149501381">WSL2使用xrdp实现图形桌面</a></p>
+<h4 id="an-zhuang-xrdp"><a class="zola-anchor" href="#an-zhuang-xrdp" aria-label="Anchor link for: an-zhuang-xrdp">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V11h-5v4.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v4.5zm13.55 10v-1.873h-3.81v-1.561l4.037-5.91h1.498v5.904h1.156v1.567h-1.156V18.5H17.05zm0-3.44v-3.18l-2.14 3.18h2.14z"/></svg> 
+
+
+    
+
+</a>
+安装 xrdp</h4>
+<p>执行 </p>
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">sudo apt-get update
+sudo apt install -y xfce4 xrdp
+</span></code></pre>
+<p>我的环境是 debian，默认使用了 lightdm，不需要手动选择。</p>
+<h4 id="xiu-gai-xrdp-mo-ren-duan-kou-fang-zhi-yu-windows-de-duan-kou-chong-tu"><a class="zola-anchor" href="#xiu-gai-xrdp-mo-ren-duan-kou-fang-zhi-yu-windows-de-duan-kou-chong-tu" aria-label="Anchor link for: xiu-gai-xrdp-mo-ren-duan-kou-fang-zhi-yu-windows-de-duan-kou-chong-tu">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V11h-5v4.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v4.5zm13.55 10v-1.873h-3.81v-1.561l4.037-5.91h1.498v5.904h1.156v1.567h-1.156V18.5H17.05zm0-3.44v-3.18l-2.14 3.18h2.14z"/></svg> 
+
+
+    
+
+</a>
+修改 xrdp 默认端口，防止与 windows 的端口冲突</h4>
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">λ sudo vim /etc/xrdp/xrdp.ini
+
+...
+</span><span style="font-style:italic;color:#969896;"># 修改下面这一行,将默认的3389改成其他端口即可
+</span><span style="color:#323232;">port=3390
+...
+</span></code></pre><h4 id="wei-dang-qian-yong-hu-zhi-ding-deng-lu-sessionlei-xing"><a class="zola-anchor" href="#wei-dang-qian-yong-hu-zhi-ding-deng-lu-sessionlei-xing" aria-label="Anchor link for: wei-dang-qian-yong-hu-zhi-ding-deng-lu-sessionlei-xing">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V11h-5v4.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v4.5zm13.55 10v-1.873h-3.81v-1.561l4.037-5.91h1.498v5.904h1.156v1.567h-1.156V18.5H17.05zm0-3.44v-3.18l-2.14 3.18h2.14z"/></svg> 
+
+
+    
+
+</a>
+为当前用户指定登录session类型</h4>
+<p>注意这一步很重要,如果不设置的话会导致后面远程桌面连接上闪退</p>
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">λ vim ~/.xsession
+
+</span><span style="font-style:italic;color:#969896;"># 写入下面内容(就一行)
+</span><span style="color:#323232;">xfce4-session
+</span></code></pre><h4 id="qi-dong-xrdp"><a class="zola-anchor" href="#qi-dong-xrdp" aria-label="Anchor link for: qi-dong-xrdp">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V11h-5v4.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v4.5zm13.55 10v-1.873h-3.81v-1.561l4.037-5.91h1.498v5.904h1.156v1.567h-1.156V18.5H17.05zm0-3.44v-3.18l-2.14 3.18h2.14z"/></svg> 
+
+
+    
+
+</a>
+启动 xrdp</h4>
+<p>wsl2 里没法自启动，所以需要每次手动启动。</p>
+<p><code>sudo /etc/init.d/xrdp start</code> 或者 <code>sudo service xrdp start</code></p>
+<h4 id="zui-hou-yuan-cheng-fang-wen-jiu-ok-liao"><a class="zola-anchor" href="#zui-hou-yuan-cheng-fang-wen-jiu-ok-liao" aria-label="Anchor link for: zui-hou-yuan-cheng-fang-wen-jiu-ok-liao">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V11h-5v4.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v4.5zm13.55 10v-1.873h-3.81v-1.561l4.037-5.91h1.498v5.904h1.156v1.567h-1.156V18.5H17.05zm0-3.44v-3.18l-2.14 3.18h2.14z"/></svg> 
+
+
+    
+
+</a>
+最后远程访问就 ok 了</h4>
+<p>在 windows 系统中运行 <code>mstsc</code> 命令打开远程桌面连接,地址输入 <code>localhost:3390</code></p>
+<h3 id="ruan-jian-pei-zhi"><a class="zola-anchor" href="#ruan-jian-pei-zhi" aria-label="Anchor link for: ruan-jian-pei-zhi">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm9.989 7.53l1.726-.209c.055.44.203.777.445 1.01.24.232.533.349.876.349.368 0 .678-.14.93-.42.251-.279.377-.655.377-1.13 0-.448-.12-.803-.362-1.066a1.153 1.153 0 0 0-.882-.393c-.228 0-.501.044-.819.133l.197-1.453c.482.012.85-.092 1.105-.315.253-.222.38-.517.38-.885 0-.313-.093-.563-.279-.75-.186-.185-.434-.278-.743-.278a1.07 1.07 0 0 0-.78.317c-.216.212-.347.52-.394.927l-1.644-.28c.114-.562.287-1.012.517-1.348.231-.337.553-.601.965-.794a3.24 3.24 0 0 1 1.387-.289c.876 0 1.579.28 2.108.838.436.457.653.973.653 1.549 0 .817-.446 1.468-1.339 1.955.533.114.96.37 1.28.768.319.398.478.878.478 1.441 0 .817-.298 1.513-.895 2.088-.596.576-1.339.864-2.228.864-.842 0-1.54-.243-2.094-.727-.555-.485-.876-1.118-.965-1.901z"/></svg> 
+
+
+    
+
+</a>
+软件配置</h3>
+<p>这就像配置 linux 实机桌面环境意义，你需要安装很多软件方便开发。</p>
+<h4 id="mei-hua-zhong-duan-mo-ni-qi"><a class="zola-anchor" href="#mei-hua-zhong-duan-mo-ni-qi" aria-label="Anchor link for: mei-hua-zhong-duan-mo-ni-qi">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V11h-5v4.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v4.5zm13.55 10v-1.873h-3.81v-1.561l4.037-5.91h1.498v5.904h1.156v1.567h-1.156V18.5H17.05zm0-3.44v-3.18l-2.14 3.18h2.14z"/></svg> 
+
+
+    
+
+</a>
+美化终端模拟器</h4>
+<p>自带的 <code>x-terminal-emulator</code> 实在是太丑了。这里我用了 <code>terminator</code></p>
+<p><code>sudo apt-get install terminator</code></p>
+<p>安装完之后就会自动替换掉原来的 <code>x-terminal-emulator</code> 链接</p>
+<p>这个终端只是在桌面环境里面用的，我更喜欢用在 windows 上用 <a href="https://www.microsoft.com/zh-cn/p/windows-terminal/9n0dx20hk701?activetab=pivot:overviewtab">windows terminal</a>，双屏配合着干活</p>
+<h4 id="idea-linux-ban"><a class="zola-anchor" href="#idea-linux-ban" aria-label="Anchor link for: idea-linux-ban">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V11h-5v4.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v4.5zm13.55 10v-1.873h-3.81v-1.561l4.037-5.91h1.498v5.904h1.156v1.567h-1.156V18.5H17.05zm0-3.44v-3.18l-2.14 3.18h2.14z"/></svg> 
+
+
+    
+
+</a>
+idea linux 版</h4>
+<p>这个不用多说，官网直接下就行了</p>
+<h4 id="zhong-wen-shu-ru-fa"><a class="zola-anchor" href="#zhong-wen-shu-ru-fa" aria-label="Anchor link for: zhong-wen-shu-ru-fa">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V11h-5v4.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v4.5zm13.55 10v-1.873h-3.81v-1.561l4.037-5.91h1.498v5.904h1.156v1.567h-1.156V18.5H17.05zm0-3.44v-3.18l-2.14 3.18h2.14z"/></svg> 
+
+
+    
+
+</a>
+中文输入法</h4>
+<p>我一开始用的 <a href="https://pinyin.sogou.com/linux/?r=pinyin">搜狗 linux 版</a>，因为系统太简洁了，没有包安装器，只能使用 <code>dpkg</code> 命令安装。</p>
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">sudo dpkg -i sogoupinyin_2.3.2.07_amd64.deb
+
+</span><span style="font-style:italic;color:#969896;"># 补齐依赖
+</span><span style="color:#323232;">sudo apt --fix-broken install
+</span></code></pre>
+<p>装好后出了点问题，搜狗始终打印的是繁体（候选框是简体，打出来的字确是繁体的），只好换成 <code>google-pinyin</code></p>
+<p>因为上面的步骤已经安装好了 <code>fcitx</code> 框架。所以可以直接执行 <code>sudo apt install fcitx-googlepinyin</code></p>
+<h3 id="she-zhi-zhong-wen-yu-yan"><a class="zola-anchor" href="#she-zhi-zhong-wen-yu-yan" aria-label="Anchor link for: she-zhi-zhong-wen-yu-yan">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm9.989 7.53l1.726-.209c.055.44.203.777.445 1.01.24.232.533.349.876.349.368 0 .678-.14.93-.42.251-.279.377-.655.377-1.13 0-.448-.12-.803-.362-1.066a1.153 1.153 0 0 0-.882-.393c-.228 0-.501.044-.819.133l.197-1.453c.482.012.85-.092 1.105-.315.253-.222.38-.517.38-.885 0-.313-.093-.563-.279-.75-.186-.185-.434-.278-.743-.278a1.07 1.07 0 0 0-.78.317c-.216.212-.347.52-.394.927l-1.644-.28c.114-.562.287-1.012.517-1.348.231-.337.553-.601.965-.794a3.24 3.24 0 0 1 1.387-.289c.876 0 1.579.28 2.108.838.436.457.653.973.653 1.549 0 .817-.446 1.468-1.339 1.955.533.114.96.37 1.28.768.319.398.478.878.478 1.441 0 .817-.298 1.513-.895 2.088-.596.576-1.339.864-2.228.864-.842 0-1.54-.243-2.094-.727-.555-.485-.876-1.118-.965-1.901z"/></svg> 
+
+
+    
+
+</a>
+设置中文语言</h3>
+<p>参考文章：<a href="https://x.medemede.cn/archives/%E8%A7%A3%E5%86%B3linux%E4%B8%8Bpycharm%E6%97%A0%E6%B3%95%E8%BE%93%E5%85%A5%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98#comment-author">解决Linux下pycharm无法输入中文的问题</a></p>
+<p>如果没有中文，文件管理器里面显示的中文名字会是乱码，终端不能输入中文，idea 里无法用中文输入法。</p>
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;"># 安装本地语言管理 和 中文字体包
+sudo apt-get -y install locales xfonts-intl-chinese fonts-wqy-microhei
+
+# 安装语言环境 选择 en_US.utf8 和 zh_CN-UTF-8
+# 空格键选择 Tab 键跳出选择，左右方向键选择确定还是取消，回车
+sudo dpkg-reconfigure locales
+
+# 查看当前系统支持的所有语言
+λ locale -a
+C
+C.UTF-8
+en_US.utf8
+POSIX
+zh_CN.utf8
+
+# 设置默认语言
+sudo update-locale LC_ALL=&quot;zh_CN.UTF-8&quot;
+</span></code></pre>
+<p>如果你没法输入中文，如果出现 <code>LC_ALL=c</code> 一般是有问题的，需要手动 <code>export</code> 变量。</p>
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">λ locale
+LANG=zh_CN.UTF-8
+LANGUAGE=
+LC_CTYPE=&quot;zh_CN.UTF-8&quot;
+LC_NUMERIC=&quot;zh_CN.UTF-8&quot;
+LC_TIME=&quot;zh_CN.UTF-8&quot;
+LC_COLLATE=&quot;zh_CN.UTF-8&quot;
+LC_MONETARY=&quot;zh_CN.UTF-8&quot;
+LC_MESSAGES=&quot;zh_CN.UTF-8&quot;
+LC_PAPER=&quot;zh_CN.UTF-8&quot;
+LC_NAME=&quot;zh_CN.UTF-8&quot;
+LC_ADDRESS=&quot;zh_CN.UTF-8&quot;
+LC_TELEPHONE=&quot;zh_CN.UTF-8&quot;
+LC_MEASUREMENT=&quot;zh_CN.UTF-8&quot;
+LC_IDENTIFICATION=&quot;zh_CN.UTF-8&quot;
+LC_ALL=zh_CN.UTF-8
+</span></code></pre>
+<p>我看到一些其他方案解决 linux 下 idea 无法输入中文的问题，嗯，在这都不好使... 最后还是找到了上面参考文章说的一样，只要设置了好了中文语言环境就 ok 了。</p>
+<ul>
+<li><del><a href="https://www.jianshu.com/p/0165d540e2c9">修改 idea vm 参数 或者 切换启动 jdk</a></del></li>
+<li><del><a href="https://www.cnblogs.com/lshao/p/10058961.html">修改 idea.sh 的方式</a></del></li>
+</ul>
+<h2 id="zong-jie"><a class="zola-anchor" href="#zong-jie" aria-label="Anchor link for: zong-jie">
+    
+    
+
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.5h5V4a1 1 0 0 1 1-1h.5a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V11H3v4.5a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1H2a1 1 0 0 1 1 1v4.5zm16.076 8.343V18.5h-6.252c.067-.626.27-1.22.61-1.78.338-.561 1.006-1.305 2.005-2.232.804-.749 1.297-1.257 1.479-1.523.245-.368.368-.732.368-1.092 0-.398-.107-.703-.32-.917-.214-.214-.51-.32-.886-.32-.372 0-.669.111-.889.336-.22.224-.347.596-.38 1.117l-1.778-.178c.106-.982.438-1.686.997-2.114.558-.427 1.257-.64 2.095-.64.918 0 1.64.247 2.164.742.525.495.787 1.11.787 1.847 0 .419-.075.818-.225 1.197-.15.378-.388.775-.714 1.19-.216.275-.605.67-1.168 1.187-.563.516-.92.859-1.07 1.028a3.11 3.11 0 0 0-.365.495h3.542z"/></svg> 
+
+    
+
+</a>
+总结</h2>
+<p>当前远程桌面也只是一种暂时的解决方案，毕竟体验还是不够好</p>
+<p>微软 和 JetBrains 都还在对 wsl2 做优化，不过我看短期内够呛。。。</p>
+<p>最后贴张双屏的图，竖屏是 windows terminal，横屏是远程桌面</p>
+<p><img src="/image/2020/08/double-screen-work.png" alt="double-screen-work.png" /></p>
+
+    </div>
+
+    
+    
+
+    
+
+    <div class="post-footer">
+        
+        
+        <div class="post-tags">
+            <span style="font-weight: bold; color:#183691;">标签: </span>
+            
+            <a href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;tags&#x2F;wsl&#x2F;">#WSL</a>
+            
+        </div>
+        
+
+        
+        <div class="post-nav">
+            
+            <a class="previous" href="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;article&#x2F;having-problem-with-wsl-proxy&#x2F;">‹ 配置 wsl 代理遇到的一些坑</a>
+            
+            
+            
+            
+        </div>
+        
+
+        
+    </div>
+
+    
+    
+</article>
+
+
+                </div>
+                
+
+
+
+
+
+<script src="https://utteranc.es/client.js" repo="yanshenxian/yanshenxian.github.io" issue-term="title" theme="github-light" crossorigin="anonymous" async></script>
+
+
+
+            </main>
+        </div>
+
+        <footer>
+    <p>
+        © yanshenxian&#x27;s blog 2020 Powered by <a target="_blank"
+            href="https://getzola.org/">Zola</a>, Theme <a target="_blank"
+            href="https://www.getzola.org/themes/even/">even</a>.
+    </p>
+</footer>
+        <a class="back-to-top" id="scroll_to_top_id">
+    <div>
+        <span><img src="/back_top.png"/></span>
+    </div>
+    <div style="float: right;">
+        <span id="scrollpercent">0</span>%
+    </div>
+</a>
+    </div>
+
+
+</body>
+
+
+<script type="text/javascript" src="https:&#x2F;&#x2F;blog.yanshenxian.xyz&#x2F;even.js"></script>
+<script type="text/javascript" src="/js/scroll.js"></script>
+
+<script src="/js/slideout.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gist-embed@1.0.4/dist/gist-embed.min.js"></script>
+
+
+
+
+</html>
